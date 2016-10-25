@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta name="viewpoer" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        
+        <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <!-- Include the compiled Ratchet CSS -->
+        <link href="../www/dist/css/ratchet.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+        <!-- Include the compiled Ratchet JS -->
+        <script src="../www/dist/js/ratchet.js"></script>
+    </head>
+    <body onload="onLoad()">
+        <header class="bar bar-nav">
+          <h1 class="title">Settings</h1>
+        </header>
+        
+        <div style="background-color:#fff; height:100%; width:100%;">
+        <form id="form" onsubmit="return false">
+            <div class="input-row"></div>
+            <p style="margin-top:3%;">Account</p>
+            <input id="username" type="email" placeholder="user@example.com">
+            <input id="password" type="password" placeholder="Your password">       
+        </form>
+            
+        <p style="margin-top:3%;">App Setting</p>
+            <ul class="table-view">
+              <li class="table-view-cell">
+                Automatically send location data
+                <div id="location-toggle" class="toggle">
+                  <div class="toggle-handle"></div>
+                </div>
+              </li>
+              <li class="table-view-cell">
+                Send location data every (minutes)
+                <div style="position: absolute; top: 3px; right: 11px; font-size: 13px;">
+                    <input id="location-timer" type="number" min="1" max="60" value="5" style="border:0;">
+                </div>
+              </li>
+            </ul>
+            
+            <!--
+            <div class="input-row">
+              <label class="label2">Automatically send location data</label>
+              <div class="toggle" id="location-toggle">
+                <div class="toggle-handle"></div>
+            </div>
+            </div>
+            <div class="input-row">
+              <label class="label2">Send location data every (minutes)</label>
+              <input id="location-timer" type="number" min="1" max="60" value="5">
+            </div>-->
+            
+            <table class="table-setting-button">
+                <tr>
+                    <td style="width:40%;"><button class="btn btn-positive btn-block" onclick="onSubmit()">Save</button></td>
+                    <td style="width:20%"></td>
+                    <td style="width:40%;"><button class="btn btn-negative btn-block" onclick="clearFields()">Clear</button></td>
+                </tr>
+            </table>
+            
+            <button class="btn btn-primary btn-block full-screen-button" onclick="app.updateData()">Update Data</button>
+            <!--<button class="btn btn-positive btn-block full-screen-button"><a id="locationAnchor">Current Location</a></button>-->
+            <button class="btn btn-negative btn-block full-screen-button" onclick="app.clearData()">Erase All Data</button>
+            
+        </div>
+        
+        <nav class="bar bar-tab">
+          <a class="tab-item" href="index.html" data-transition="slide-in">
+            <span class="icon icon-home"></span>
+            <span class="tab-label">Home</span>
+          </a>
+          <a class="tab-item active" href="setting.html" data-transition="slide-in">
+            <span class="icon icon-gear"></span>
+            <span class="tab-label">Settings</span>
+          </a>
+        </nav>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/support.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        
+        <script type="text/javascript"> 
+            var enableLocation = document.getElementById("location-toggle");
+            var locationTimer = document.getElementById("location-timer");
+            var enable = false;
+            enableLocation.addEventListener('toggle', function(e){
+                if (e.detail.isActive){
+                    locationTimer.removeAttribute("disabled");
+                    var attr = document.createAttribute("enable");
+                    locationTimer.setAttributeNode(attr);
+                    enable = true;
+                }else{
+                    locationTimer.removeAttribute("enable");
+                    var attr = document.createAttribute("disabled");
+                    locationTimer.setAttributeNode(attr);
+                    enable = false;
+                }
+            });
+            
+            function onSubmit() {
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                if (username!="" && password!="") {
+                    app.saveInfo(username, password, enable, locationTimer.value);
+                }else{
+                    if(username==""){
+                        app.showAlert("Username is empty", "Error", 0);
+                    }else{
+                        if(password==""){
+                            app.showAlert("Password is empty", "Error", 0);
+                        };
+                    }; 
+                };
+            };
+
+            function clearFields(){
+                var username = document.getElementById("username");
+                var password = document.getElementById("password");
+                username.value = "";
+                password.value = "";
+            };
+
+            function onLoad(){
+                app.getLoginInfo();
+            };
+        </script>
+    </body>
+</html>
