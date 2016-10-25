@@ -14,11 +14,22 @@
 
         <!-- Include the compiled Ratchet JS -->
         <script src="../www/dist/js/ratchet.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/support.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
     </head>
-    <body onload="app.loadHomeScreen();">
+    <body>
         
-        <iframe id="homeScreen" class="defaultScreen">
-        </iframe>
+        <div id="homeScreen" class="defaultScreen" style="background-color:#fff;">
+            <form>
+              <input type="text" placeholder="Scan QR code value here" autofocus>
+              <button class="btn btn-positive btn-block" onclick="checkQrCode()">OK</button>
+            </form>
+        </div>
         <!--src="http://demo.workflowfirst.net/?m=1"-->
         
         <nav class="bar bar-tab">
@@ -31,13 +42,5 @@
             <span class="tab-label">Settings</span>
           </a>
         </nav>
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/support.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
     </body>
 </html>
