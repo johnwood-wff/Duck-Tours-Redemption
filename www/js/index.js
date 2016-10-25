@@ -46,7 +46,7 @@ var app = {
         window.history.back();
     },
 
-    loadHomeScreen: function(){
+    doLogin: function(){
         var link = "http://ducktours.workflowfirst.net/tms/";
         //getting username and password
         var loginInfo = "";
@@ -60,12 +60,12 @@ var app = {
         }
         
         loginInfo = loginInfo.split(",");
-        console.log("Login Info: " + loginInfo);
+        alert("Login Info: " + loginInfo);
         
         var username = loginInfo[0];
         var password = loginInfo[1];
-        console.log("Username: " + username);
-        console.log("Password: " + password);
+        alert("Username: " + username);
+        alert("Password: " + password);
 
         if (loginInfo!==""){
             if (username!=="" && password!==""){
@@ -78,10 +78,10 @@ var app = {
                         url: link,
                         dataType: 'jsonp',
                         success:function(json){
-                            console.log("Login success"); 
+                            alert("Login success"); 
                         },
                         error:function(error){
-                            console.log("Login failed");
+                            alert("Login failed");
                         }      
                 });           
             }else{
@@ -222,17 +222,18 @@ var app = {
 
     //checking with the server
     checkQrCode: function(){
-        console.log("Check QR Code");
-       
+        alert("Check QR Code");
+        doLogin();
+        
         var link = "http://ducktours.workflowfirst.net/tms/";
         var funcId = "Functions:ScanQRCode";
         var record = {  "QRCode": "92885048"
                      };
         
-        console.log(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+        alert(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
 
         $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) {  
-            console.log("Result: " + res);
+            alert("Result: " + res);
         }, "jsonp");
     },
 
