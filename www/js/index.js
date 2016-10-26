@@ -73,7 +73,7 @@ var app = {
                 link += "&username=" + username;
                 link += "&password=" + Base64.encode(password);
                 link += "&format=json";
-                alert("Login: " + link);
+                alert("Login link: " + link);
                 
                 $.ajax({
                         url: link,
@@ -81,10 +81,11 @@ var app = {
                         async: false,
                         statusCode: {
                             404: function() {
-                              console.log( "page not found" );
+                              console.log( "Error with login");
                             },
                             200: function(json){
                                 alert("Login success: " + JSON.stringify(json));
+                                alert(Base64.encode("123456Aa"));
                             }
                           },
                     
@@ -226,7 +227,7 @@ var app = {
         var record = {  "QRCode": "92885048"
                      };
         
-        alert(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+        alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
 
         $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status) {  
             alert("Data: " + data + "\nStatus: " + status);
