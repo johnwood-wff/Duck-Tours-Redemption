@@ -50,15 +50,15 @@ var app = {
     doLogin: function(){
         var link = "http://ducktours.workflowfirst.net/tms/";
         //getting username and password
-        var loginInfo = app.getLoginInfo();
-//        if (localStorage.length > 0){
-//            var key = localStorage.key(localStorage.length - 1);
-//            var index = 2;
-//            var value = localStorage.getItem(key);
-//            if (value!==""){
-//                loginInfo = key.concat(",",value);
-//            }
-//        }
+        var loginInfo = "";
+        if (localStorage.length > 0){
+            var key = localStorage.key(localStorage.length - 1);
+            var index = 2;
+            var value = localStorage.getItem(key);
+            if (value!==""){
+                loginInfo = key.concat(",",value);
+            }
+        }
         
         loginInfo = loginInfo.split(",");
         alert("Login Info: " + loginInfo);
