@@ -85,7 +85,6 @@ var app = {
                             },
                             200: function(json){
                                 alert("Login success: " + JSON.stringify(json));
-                                alert(Base64.encode("123456Aa"));
                             }
                           },
                     
@@ -144,7 +143,7 @@ var app = {
     },
 
     saveInfo: function (key, value) {
-        alert("Save Data with key: " + key + " and value: " + value);
+        console.log("Save Data with key: " + key + " and value: " + value);
         for (var i = 0; i < localStorage.length; i++){
             //alert(localStorage.key(i));
             // && (localStorage.key(i)!=="lastApprovalNumber") && (localStorage.key(i)!=="enableLocation") && (localStorage.key(i)!=="locationTimer"))
@@ -158,7 +157,7 @@ var app = {
     },
 
     getSaveData: function(key){
-        alert("Get Save Data with key: " + key);
+        console.log("Get Save Data with key: " + key);
         var data;
         var value = localStorage.getItem(key);
         if (value!==null){
