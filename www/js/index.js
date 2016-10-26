@@ -218,7 +218,7 @@ var app = {
     //checking with the server
     checkQrCode: function(){
         //alert("Check QR Code");
-        app.doLogin();
+        //app.doLogin();
         var link = "http://ducktours.workflowfirst.net/tms/";
         var funcId = "Functions:ScanQRCode";
         var record = {  "QRCode": "92885048"
