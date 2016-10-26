@@ -71,7 +71,7 @@ var app = {
                 link += "verifylogin.aspx?";
                 link += "&username=" + username;
                 link += "&password=" + Base64.encode(password);
-                link += "&format=jsonp";
+                link += "&format=json";
                 alert("Login: " + link);
                 
                 $.ajax({
@@ -83,7 +83,7 @@ var app = {
                               console.log( "page not found" );
                             },
                             200: function(json){
-                                console.log("Login success: " + JSON.stringify(json));
+                                alert("Login success: " + JSON.stringify(json));
                             }
                           },
                     
