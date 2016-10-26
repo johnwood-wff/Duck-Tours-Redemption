@@ -40,7 +40,7 @@ var app = {
         var menuOpen = false;
         var menuDiv = "";
         var homeScreen = document.getElementById("homeScreen");
-        app.doLogin();
+        //app.doLogin();
     },
 
     backPressed: function(){
@@ -50,23 +50,21 @@ var app = {
     doLogin: function(){
         var link = "http://ducktours.workflowfirst.net/tms/";
         //getting username and password
-        var loginInfo = "";
-        if (localStorage.length > 0){
-            var key = localStorage.key(localStorage.length - 1);
-            var index = 2;
-            var value = localStorage.getItem(key);
-            if (value!==""){
-                loginInfo = key.concat(",",value);
-            }
-        }
+        var loginInfo = app.getLoginInfo();
+//        if (localStorage.length > 0){
+//            var key = localStorage.key(localStorage.length - 1);
+//            var index = 2;
+//            var value = localStorage.getItem(key);
+//            if (value!==""){
+//                loginInfo = key.concat(",",value);
+//            }
+//        }
         
         loginInfo = loginInfo.split(",");
         alert("Login Info: " + loginInfo);
         
         var username = loginInfo[0];
         var password = loginInfo[1];
-        //alert("Username: " + username);
-        //alert("Password: " + password);
 
         if (loginInfo!==""){
             if (username!=="" && password!==""){
@@ -82,19 +80,19 @@ var app = {
                         async: false,
                         statusCode: {
                             404: function() {
-                              alert( "page not found" );
+                              console.log( "page not found" );
                             },
                             200: function(json){
-                                alert("Login success: " + JSON.stringify(json));
+                                console.log("Login success: " + JSON.stringify(json));
                             }
                           },
                     
                 });           
             }else{
-               alert("No login information found"); 
+               console.log("No login information found"); 
             }
         }else{
-           alert("No login information found"); 
+           console.log("No login information found"); 
         }  
     },
     
@@ -104,14 +102,6 @@ var app = {
         if (localStorage.getItem("debug")!==""){
             localStorage.removeItem("debug");
         }
-        
-        var dataStored;
-        for (var i = 0; i < localStorage.length; i++){
-            dataStored += "Key: " + localStorage.key(i) + ", Value: " + localStorage.getItem(localStorage.key(i)) + "\n";
-        }
-        alert("Stored Data: \n" + dataStored);
-        alert("JW: " + Base64.decode("V2VsY29tZTE"));
-        alert("Pass: " + Base64.encode("123456Aa"));
 
         var networkState = navigator.network.connection.type;
         var states = {};
@@ -171,7 +161,7 @@ var app = {
         var value = localStorage.getItem(key);
         if (value!==null){
             data = key.concat(",",value); 
-            alert("Data: " + data);
+            console.log("Data: " + data);
             return data;
         }else{
             return null;
@@ -179,7 +169,7 @@ var app = {
     },
 
     getLoginInfo: function () {
-        alert("Get Login Information");
+        console.log("Get Login Information");
         
         var dataStored;
         for (var i = 0; i < localStorage.length; i++){
@@ -206,7 +196,6 @@ var app = {
                 data = key.concat(",",value);
             }
         }
-        alert("Pass: " + Base64.encode("123456Aa"));
         return data;
     },
 
@@ -229,7 +218,7 @@ var app = {
     //checking with the server
     checkQrCode: function(){
         //alert("Check QR Code");
-        
+        app.doLogin();
         var link = "http://ducktours.workflowfirst.net/tms/";
         var funcId = "Functions:ScanQRCode";
         var record = {  "QRCode": "92885048"
@@ -237,8 +226,8 @@ var app = {
         
         alert(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
 
-        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) {  
-            alert("Result: " + res);
+        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status) {  
+            alert("Data: " + data + "\nStatus: " + status);
         }, "jsonp");
     },
 
