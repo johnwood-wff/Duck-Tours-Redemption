@@ -49,6 +49,7 @@ var app = {
 
     doLogin: function(){
         var link = "http://ducktours.workflowfirst.net/tms/";
+        
         //getting username and password
         var loginInfo = "";
         if (localStorage.length > 0){
@@ -218,7 +219,8 @@ var app = {
     //checking with the server
     checkQrCode: function(){
         //alert("Check QR Code");
-        //app.doLogin();
+        app.doLogin();
+        
         var link = "http://ducktours.workflowfirst.net/tms/";
         var funcId = "Functions:ScanQRCode";
         var record = {  "QRCode": "92885048"
@@ -229,6 +231,7 @@ var app = {
         $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status) {  
             alert("Data: " + data + "\nStatus: " + status);
         }, "jsonp");
+        alert("Done");
     },
 
     timeConverter: function (UNIX_timestamp){
