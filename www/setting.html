@@ -14,42 +14,6 @@
 
         <!-- Include the compiled Ratchet JS -->
         <script src="../www/dist/js/ratchet.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/support.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-        
-        <script type="text/javascript"> 
-            function onSubmit() {
-                var username = document.getElementById("username").value;
-                var password = document.getElementById("password").value;
-                if (username!="" && password!="") {
-                    app.saveInfo(username, password, enable, locationTimer.value);
-                }else{
-                    if(username==""){
-                        app.showAlert("Username is empty", "Error", 0);
-                    }else{
-                        if(password==""){
-                            app.showAlert("Password is empty", "Error", 0);
-                        };
-                    }; 
-                };
-            };
-
-            function clearFields(){
-                var username = document.getElementById("username");
-                var password = document.getElementById("password");
-                username.value = "";
-                password.value = "";
-            };
-
-            function onLoad(){
-                app.getLoginInfo();
-            };
-        </script>
     </head>
     <body onload="onLoad()">
         <header class="bar bar-nav">
@@ -83,5 +47,42 @@
             <span class="tab-label">Settings</span>
           </a>
         </nav>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/support.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        
+        <script type="text/javascript"> 
+            function onSubmit() {
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                if (username!="" && password!="") {
+                    app.saveInfo(username, password);
+                }else{
+                    if(username==""){
+                        app.showAlert("Username is empty", "Error", 0);
+                    }else{
+                        if(password==""){
+                            app.showAlert("Password is empty", "Error", 0);
+                        };
+                    }; 
+                };
+            };
+
+            function clearFields(){
+                var username = document.getElementById("username");
+                var password = document.getElementById("password");
+                username.value = "";
+                password.value = "";
+            };
+
+            function onLoad(){
+                app.getLoginInfo();
+            };
+        </script>
     </body>
 </html>

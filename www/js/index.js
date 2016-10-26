@@ -40,6 +40,7 @@ var app = {
         var menuOpen = false;
         var menuDiv = "";
         var homeScreen = document.getElementById("homeScreen");
+        app.doLogin();
     },
 
     backPressed: function(){
@@ -64,25 +65,30 @@ var app = {
         
         var username = loginInfo[0];
         var password = loginInfo[1];
-        alert("Username: " + username);
-        alert("Password: " + password);
+        //alert("Username: " + username);
+        //alert("Password: " + password);
 
         if (loginInfo!==""){
             if (username!=="" && password!==""){
                 link += "verifylogin.aspx?";
                 link += "&username=" + username;
                 link += "&password=" + Base64.encode(password);
-                link += "&format=json";
-
+                link += "&format=jsonp";
+                alert("Login: " + link);
+                
                 $.ajax({
                         url: link,
                         dataType: 'jsonp',
-                        success:function(json){
-                            alert("Login success"); 
-                        },
-                        error:function(error){
-                            alert("Login failed");
-                        }      
+                        async: false,
+                        statusCode: {
+                            404: function() {
+                              alert( "page not found" );
+                            },
+                            200: function(json){
+                                alert("Login success: " + JSON.stringify(json));
+                            }
+                          },
+                    
                 });           
             }else{
                alert("No login information found"); 
@@ -103,9 +109,9 @@ var app = {
         for (var i = 0; i < localStorage.length; i++){
             dataStored += "Key: " + localStorage.key(i) + ", Value: " + localStorage.getItem(localStorage.key(i)) + "\n";
         }
-        console.log("Stored Data: \n" + dataStored);
-        console.log("JW: " + Base64.decode("V2VsY29tZTE"));
-        console.log("Pass: " + Base64.encode("123456Aa"));
+        alert("Stored Data: \n" + dataStored);
+        alert("JW: " + Base64.decode("V2VsY29tZTE"));
+        alert("Pass: " + Base64.encode("123456Aa"));
 
         var networkState = navigator.network.connection.type;
         var states = {};
@@ -146,7 +152,7 @@ var app = {
     },
 
     saveInfo: function (key, value) {
-        console.log("Save Data with key: " + key + " and value: " + value);
+        alert("Save Data with key: " + key + " and value: " + value);
         for (var i = 0; i < localStorage.length; i++){
             //alert(localStorage.key(i));
             // && (localStorage.key(i)!=="lastApprovalNumber") && (localStorage.key(i)!=="enableLocation") && (localStorage.key(i)!=="locationTimer"))
@@ -160,12 +166,12 @@ var app = {
     },
 
     getSaveData: function(key){
-        console.log("Get Save Data with key: " + key);
+        alert("Get Save Data with key: " + key);
         var data;
         var value = localStorage.getItem(key);
         if (value!==null){
             data = key.concat(",",value); 
-            console.log("Data: " + data);
+            alert("Data: " + data);
             return data;
         }else{
             return null;
@@ -173,7 +179,7 @@ var app = {
     },
 
     getLoginInfo: function () {
-        console.log("Get Login Information");
+        alert("Get Login Information");
         
         var dataStored;
         for (var i = 0; i < localStorage.length; i++){
@@ -181,7 +187,7 @@ var app = {
             dataStored += "Key: " + localStorage.key(i) + ", Value: " + localStorage.getItem(localStorage.key(i)) + "\n";
         }
         
-        console.log("Stored Data: \n" + dataStored);
+        alert("Stored Data: \n" + dataStored);
         
         var data = "";
         if (localStorage.getItem("debug")!==""){
@@ -200,7 +206,7 @@ var app = {
                 data = key.concat(",",value);
             }
         }
-        console.log("Pass: " + Base64.encode("123456Aa"));
+        alert("Pass: " + Base64.encode("123456Aa"));
         return data;
     },
 
@@ -222,8 +228,7 @@ var app = {
 
     //checking with the server
     checkQrCode: function(){
-        alert("Check QR Code");
-        doLogin();
+        //alert("Check QR Code");
         
         var link = "http://ducktours.workflowfirst.net/tms/";
         var funcId = "Functions:ScanQRCode";
