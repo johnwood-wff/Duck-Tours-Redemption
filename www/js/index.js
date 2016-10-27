@@ -77,20 +77,32 @@ var app = {
                 alert(Base64.decode(Base64.encode("123456Aa")));
                 alert("Login link: " + link);
                 
-                $.ajax({
+                var dfrd1 = $.Deferred();
+                setTimeout(function(){
+                    $.ajax({
                         url: link,
                         dataType: 'jsonp',
                         async: false,
                         statusCode: {
-                            404: function() {
-                              console.log( "Error with login");
-                            },
-                            200: function(json){
-                                alert("Login success: " + JSON.stringify(json));
-                            }
+                            success:function(json){
+                                alert("Login Sucess: " + json);
+                             },
+                             error:function(){
+                                 alert("Login Failed");
+                             }   
+//                            404: function() {
+//                              console.log( "Error with login");
+//                            },
+//                            200: function(json){
+//                                alert("Login success: " + JSON.stringify(json));
+//                            }
                           },
                     
-                });           
+                    });  
+                    console.log('task 1 in function1 is done!');
+                    dfrd1.resolve();
+                }, 2500);  
+                return dfrd1.promise();
             }else{
                console.log("No login information found"); 
             }
@@ -220,20 +232,20 @@ var app = {
 
     //checking with the server
     checkQrCode: function(){
-        //alert("Check QR Code");
-        app.doLogin();
-        
-        var link = "http://ducktours.workflowfirst.net/tms/";
-        var funcId = "Functions:ScanQRCode";
-        var record = {  "QRCode": "92885048"
-                     };
-        
-        alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+        alert("Check QR Code");
+        app.doLogin().done(function(){
+            var link = "http://ducktours.workflowfirst.net/tms/";
+            var funcId = "Functions:ScanQRCode";
+            var record = {  "QRCode": "92885048"
+                         };
 
-        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status) {  
-            alert("Data: " + data + "\nStatus: " + status);
-        }, "jsonp");
-        alert("Done");
+            alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+
+            $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status) {  
+                alert("Data: " + data + "\nStatus: " + status);
+            }, "jsonp");
+            alert("Done");
+        });
     },
 
     timeConverter: function (UNIX_timestamp){
