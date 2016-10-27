@@ -227,25 +227,28 @@ var app = {
         
         alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
         
-//        $.ajax({
-//            type: 'GET',
-//            data: "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)),
-//            url: link,
-//            dataType: 'jsonp',
-//            success: function(){
-//                alert(data);
-//                alert("Your comment was successfully added");
-//            },
-//            error: function(error){
-//                console.log(error);
-//                alert("There was an error adding your comment" + JSON.stringify(error));
-//            }
-//        });
+        $.ajax({
+            type: 'POST',
+            data: "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)),
+            url: link,
+            dataType: 'jsonp',
+            success: function(data){
+                alert(data);
+                alert("Your comment was successfully added");
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Error, status = " + textStatus + ", " +
+                      "error thrown: " + errorThrown
+                );
+            }
+        });
 
 
-        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) { 
-            alert(res);
-        },"jsonp");
+//        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
+//            alert(data);
+//            alert(status);
+//            alert(xhr);
+//        },"jsonp");
         alert("Done");
     },
 
