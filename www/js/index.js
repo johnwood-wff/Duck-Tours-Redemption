@@ -62,7 +62,7 @@ var app = {
         }
         
         loginInfo = loginInfo.split(",");
-        alert("Login Info: " + loginInfo);
+        console.log("Login Info: " + loginInfo);
         
         var username = loginInfo[0];
         var password = loginInfo[1];
@@ -73,7 +73,7 @@ var app = {
                 link += "&username=" + username;
                 link += "&password=" + encodeURIComponent(Base64.encode(password));
                 link += "&format=json";
-                alert("Login link: " + link);
+                console.log("Login link: " + link);
                 
                 $.ajax({
                         url: link,
@@ -84,7 +84,7 @@ var app = {
                               console.log( "Error with login");
                             },
                             200: function(json){
-                                alert("Login success: " + JSON.stringify(json));
+                                console.log("Login success: " + JSON.stringify(json));
                             }
                           },
                     
@@ -228,8 +228,9 @@ var app = {
         
         alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
 
-        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status) {  
-            alert("Data: " + data + "\nStatus: " + status);
+        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) { 
+            alert(res);
+            alert(JSON.stringify(res));
         }, "jsonp");
         alert("Done");
     },
