@@ -227,26 +227,25 @@ var app = {
         
         alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
         
-        $.ajax({
-            type: 'GET',
-            data: "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)),
-            url: link,
-            dataType: 'jsonp',
-            success: function(){
-                alert(data);
-                alert("Your comment was successfully added");
-            },
-            error: function(error){
-                console.log(error);
-                alert("There was an error adding your comment" + JSON.stringify(error));
-            }
-        });
+//        $.ajax({
+//            type: 'GET',
+//            data: "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)),
+//            url: link,
+//            dataType: 'jsonp',
+//            success: function(){
+//                alert(data);
+//                alert("Your comment was successfully added");
+//            },
+//            error: function(error){
+//                console.log(error);
+//                alert("There was an error adding your comment" + JSON.stringify(error));
+//            }
+//        });
 
 
-//        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) { 
-//            callback(eval(res));
-//            alert(eval(res));
-//        },"jsonp");
+        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) { 
+            alert(res);
+        },"jsonp");
         alert("Done");
     },
 
