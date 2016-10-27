@@ -73,8 +73,6 @@ var app = {
                 link += "&username=" + username;
                 link += "&password=" + encodeURIComponent(Base64.encode(password));
                 link += "&format=json";
-                alert(Base64.encode("123456Aa"));
-                alert(Base64.decode(Base64.encode("123456Aa")));
                 alert("Login link: " + link);
                 
                 var dfrd1 = $.Deferred();
@@ -84,18 +82,18 @@ var app = {
                         dataType: 'jsonp',
                         async: false,
                         statusCode: {
-                            success:function(json){
-                                alert("Login Sucess: " + json);
-                             },
-                             error:function(){
-                                 alert("Login Failed");
-                             }   
-//                            404: function() {
-//                              console.log( "Error with login");
-//                            },
-//                            200: function(json){
-//                                alert("Login success: " + JSON.stringify(json));
-//                            }
+//                            success:function(json){
+//                                alert("Login Sucess: " + json);
+//                             },
+//                             error:function(){
+//                                 alert("Login Failed");
+//                             }   
+                            404: function() {
+                              console.log( "Error with login");
+                            },
+                            200: function(json){
+                                alert("Login success: " + JSON.stringify(json));
+                            }
                           },
                     
                     });  
@@ -103,6 +101,7 @@ var app = {
                     dfrd1.resolve();
                 }, 2500);  
                 return dfrd1.promise();
+                alert("returning");
             }else{
                console.log("No login information found"); 
             }
