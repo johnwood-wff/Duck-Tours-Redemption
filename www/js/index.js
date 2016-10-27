@@ -76,17 +76,19 @@ var app = {
                 alert("Login link: " + link);
                 
                 $.ajax({
-                    url: link,
-                    dataType: 'jsonp',
-                    async: false,
-                    statusCode: {
-                        404: function() {
-                            console.log( "Error with login");
-                        },
-                        200: function(json){
-                            console.log("Login success: " + JSON.stringify(json));
-                        }
-                    },
+                        url: link,
+                        dataType: 'jsonp',
+                        async: false,
+                        statusCode: {
+                            404: function() {
+                              console.log( "Error with login");
+                            },
+                            200: function(json){
+                                alert("Login success: " + JSON.stringify(json));
+                            }
+                          },
+                    
+                });           
             }else{
                console.log("No login information found"); 
             }
@@ -217,12 +219,13 @@ var app = {
     //checking with the server
     checkQrCode: function(){
         alert("Check QR Code");
-        app.doLogin()
+        app.doLogin();
+        
         var link = "http://ducktours.workflowfirst.net/tms/";
         var funcId = "Functions:ScanQRCode";
         var record = {  "QRCode": "92885048"
-                    };
-
+                     };
+        
         alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
 
         $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status) {  
