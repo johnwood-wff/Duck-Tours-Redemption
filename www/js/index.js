@@ -228,17 +228,17 @@ var app = {
         alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
         
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             data: "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)),
             url: link,
             dataType: 'jsonp',
-            statusCode: {
-                404: function() {
-                    console.log( "Error with post data");
-                },
-                200: function(json){
-                    alert("Post ok: " + JSON.stringify(json));
-                }
+            success: function(){
+                alert(data);
+                alert("Your comment was successfully added");
+            },
+            error: function(error){
+                console.log(error);
+                alert("There was an error adding your comment" + JSON.stringify(error));
             }
         });
 
