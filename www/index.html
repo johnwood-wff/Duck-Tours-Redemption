@@ -14,13 +14,31 @@
 
         <!-- Include the compiled Ratchet JS -->
         <script src="../www/dist/js/ratchet.js"></script>
+        
+        <style>
+            .center_div{
+                margin: 0 auto;
+                padding: 50px;
+                width:60% /* value of your choice which suits your alignment */
+            }
+        </style>
     </head>
     <body>      
         <div id="homeScreen" class="defaultScreen" style="background-color:#fff;">
-            <form id="scanningForm" style="margin-left:100px; margin-right:100px; padding-top:200px;">
-              <input type="text" placeholder="Scan QR code value here" autofocus>
-              <button class="btn btn-positive btn-block" onclick="app.checkQrCode()">OK</button>
-            </form>
+            <div class="container center_div">
+                <form id="scanningForm" role="form" >
+                    <div class="row">
+                        <div class="form-group col-xs-1">
+                            <input id="QRCode" type="text" placeholder="Scan QR code value here" autofocus>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-1">
+                            <button class="btn btn-positive btn-block" onclick="app.checkQrCode()">OK</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
         </div>
         
         <nav class="bar bar-tab">

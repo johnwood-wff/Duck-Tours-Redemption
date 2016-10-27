@@ -218,11 +218,15 @@ var app = {
     //checking with the server
     checkQrCode: function(){
         alert("Check QR Code");
+        var qrCode = document.getElementById("QRCode").value;
+        alert(qrCode);
+        qrCode = "92885048";
+        
         app.doLogin();
         
         var link = "http://ducktours.workflowfirst.net/tms/";
         var funcId = "Functions:ScanQRCode";
-        var record = {  "QRCode": "92885048"
+        var record = {  "QRCode": qrCode
                      };
         
         alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
