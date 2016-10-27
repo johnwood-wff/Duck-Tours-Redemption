@@ -229,7 +229,7 @@ var app = {
         var record = {  "QRCode": qrCode
                      };
         
-        alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
        
 //        $.ajax({
 //            type: 'POST',
