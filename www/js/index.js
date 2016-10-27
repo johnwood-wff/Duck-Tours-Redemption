@@ -76,18 +76,17 @@ var app = {
                 console.log("Login link: " + link);
                 
                 $.ajax({
-                        url: link,
-                        dataType: 'jsonp',
-                        async: false,
-                        statusCode: {
-                            404: function() {
-                              console.log( "Error with login");
-                            },
-                            200: function(json){
-                                console.log("Login success: " + JSON.stringify(json));
-                            }
-                          },
-                    
+                    url: link,
+                    dataType: 'jsonp',
+                    async: false,
+                    statusCode: {
+                        404: function() {
+                            console.log( "Error with login");
+                        },
+                        200: function(json){
+                            console.log("Login success: " + JSON.stringify(json));
+                        }
+                    }
                 });           
             }else{
                console.log("No login information found"); 
@@ -227,12 +226,27 @@ var app = {
                      };
         
         alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+        
+        $.ajax({
+            type: 'POST',
+            data: "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)),
+            url: link,
+            dataType: 'jsonp',
+            statusCode: {
+                404: function() {
+                    console.log( "Error with post data");
+                },
+                200: function(json){
+                    alert("Post ok: " + JSON.stringify(json));
+                }
+            }
+        });
 
-        ajaxRunFunc(funcId, record, function(res) { alert(res); });
-//        $.get(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) { 
-//            alert(res);
-//            alert(JSON.stringify(res));
-//        }, "jsonp");
+
+//        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) { 
+//            callback(eval(res));
+//            alert(eval(res));
+//        },"jsonp");
         alert("Done");
     },
 
