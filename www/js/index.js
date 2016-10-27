@@ -71,7 +71,7 @@ var app = {
             if (username!=="" && password!==""){
                 link += "verifylogin.aspx?";
                 link += "&username=" + username;
-                link += "&password=" + encodeURI(Base64.encode(password));
+                link += "&password=" + encodeURIComponent(Base64.encode(password));
                 link += "&format=json";
                 alert(Base64.encode("123456Aa"));
                 alert(Base64.decode(Base64.encode("123456Aa")));
