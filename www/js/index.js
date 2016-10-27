@@ -225,7 +225,7 @@ var app = {
         app.doLogin();
         
         var link = "http://ducktours.workflowfirst.net/tms/";
-        var funcId = "Functions:ScanQRCode";
+        var funcId = "Functions:_ScanQRCode";
         var record = {  "QRCode": qrCode
                      };
         
