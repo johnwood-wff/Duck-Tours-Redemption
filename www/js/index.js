@@ -71,8 +71,10 @@ var app = {
             if (username!=="" && password!==""){
                 link += "verifylogin.aspx?";
                 link += "&username=" + username;
-                link += "&password=" + Base64.encode(password);
+                link += "&password=" + encodeURI(Base64.encode(password));
                 link += "&format=json";
+                alert(Base64.encode("123456Aa"));
+                alert(Base64.decode(Base64.encode("123456Aa")));
                 alert("Login link: " + link);
                 
                 $.ajax({
