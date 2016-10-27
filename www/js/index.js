@@ -228,7 +228,7 @@ var app = {
         
         alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
 
-        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) { 
+        $.get(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(res) { 
             alert(res);
             alert(JSON.stringify(res));
         }, "jsonp");
