@@ -329,6 +329,7 @@ var app = {
         var record = {  "QRCode": qrCode
                      };
          
+        var printText = "";
         alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
@@ -341,6 +342,14 @@ var app = {
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
+                    printText += "Transaction Receipt\r\n";
+                    printText += "--------------------\r\n";
+                    printText += "\r\n";
+                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
+                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
+                    printText += "Purchased Product:\r\n";
+                    printText += obj[i].PurchasedProduct + "\r\n";
+                    alert(printText);
                 }
                 if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
