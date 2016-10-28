@@ -62,7 +62,7 @@ var app = {
         }
         
         loginInfo = loginInfo.split(",");
-        console.log("Login Info: " + loginInfo);
+        alert("Login Info: " + loginInfo);
         
         var username = loginInfo[0];
         var password = loginInfo[1];
@@ -73,7 +73,7 @@ var app = {
                 link += "&username=" + username;
                 link += "&password=" + encodeURIComponent(Base64.encode(password));
                 link += "&format=json";
-                console.log("Login link: " + link);
+                alert("Login link: " + link);
                 
                 $.ajax({
                     url: link,
@@ -81,10 +81,10 @@ var app = {
                     async: false,
                     statusCode: {
                         404: function() {
-                            console.log( "Error with login");
+                            alert( "Error with login");
                         },
                         200: function(json){
-                            console.log("Login success: " + JSON.stringify(json));
+                            alert("Login success: " + JSON.stringify(json));
                         }
                     }
                 });           
@@ -249,9 +249,9 @@ var app = {
 
 
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
-            alert(data);
-            alert(status);
-            alert(xhr);
+            alert("Data: " + data);
+            alert("Status: " + status);
+            alert("XHR: " + JSON.stringify(xhr));
         });
         alert("Done");
     },
