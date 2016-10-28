@@ -239,18 +239,16 @@ var app = {
             var obj = JSON.parse(data);
             alert("Result: " + obj);
             for (var i in obj) {
-                if (obj[i].OrderID!=""){
+                if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
                 }
-                if (obj[i].TicketNumber!=""){
+                if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
                 }
-                if (obj[i].Error!=""){
+                if (obj[i].Error!="" && obj[i].Error!=undefined){
                      alert("Error: " + obj[i].Error);
                 }       
             }
-//            alert ("Error: " + obj[0].Error);
-//            alert ("Order: " + obj[0].OrderID);
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
