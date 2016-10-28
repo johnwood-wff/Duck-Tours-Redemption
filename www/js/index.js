@@ -62,7 +62,7 @@ var app = {
         }
         
         loginInfo = loginInfo.split(",");
-        alert("Login Info: " + loginInfo);
+        console.log("Login Info: " + loginInfo);
         
         var username = loginInfo[0];
         var password = loginInfo[1];
@@ -81,10 +81,10 @@ var app = {
                     async: false,
                     statusCode: {
                         404: function() {
-                            alert( "Error with login");
+                            console.log( "Error with login");
                         },
                         200: function(json){
-                            alert("Login success: " + JSON.stringify(json));
+                            console.log("Login success: " + JSON.stringify(json));
                         }
                     }
                 });           
@@ -220,7 +220,7 @@ var app = {
         alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
         alert(qrCode);
-        qrCode = "92885048";
+        //qrCode = "92885048";
         
         app.doLogin();
         
@@ -230,26 +230,13 @@ var app = {
                      };
         
         alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
-       
-//        $.ajax({
-//            type: 'POST',
-//            data: "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)),
-//            url: link,
-//            dataType: 'jsonp',
-//            success: function(data){
-//                alert(data);
-//                alert("Your comment was successfully added");
-//            },
-//            error: function(jqXHR, textStatus, errorThrown) {
-//                alert("Error, status = " + textStatus + ", " +
-//                      "error thrown: " + errorThrown
-//                );
-//            }
-//        });
-
 
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
             alert("Data: " + data);
+            var result = JSON.parse(data);
+            alert ("Error: " + result.Error);
+            alert ("Order: " + result.OrderID);
+            alert ("Ticket Number: " + result.TicketNumber);
             alert("Status: " + status);
             alert("XHR: " + JSON.stringify(xhr));
         });
