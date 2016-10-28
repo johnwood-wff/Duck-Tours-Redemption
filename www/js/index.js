@@ -225,11 +225,11 @@ var app = {
         app.doLogin();
         
         var link = "http://ducktours.workflowfirst.net/tms/";
-        var funcId = "Functions:ScanQRCode";
+        var funcId = "Functions:_ScanQRCode";
         var record = {  "QRCode": qrCode
                      };
         
-        alert("Run function: " + link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
        
 //        $.ajax({
 //            type: 'POST',
@@ -252,7 +252,7 @@ var app = {
             alert(data);
             alert(status);
             alert(xhr);
-        },"jsonp");
+        });
         alert("Done");
     },
 

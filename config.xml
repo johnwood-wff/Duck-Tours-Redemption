@@ -67,11 +67,11 @@
   <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768"/>
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
   
-  <access origin="*" subdomains="true"/>
-  <access origin="http://*.workflowfirst.net" subdomains="true" />
+  <plugin name="cordova-plugin-whitelist"/>
+  <access origin="*"/>
+  <access origin="http://*.workflowfirst.net"/>
+  <access origin="http://ducktours.workflowfirst.net/tms/*" />
   <access origin="geo:*" launch-external="yes"/>
-  <plugin name="cordova-plugin-whitelist" version="1"/>
-
 
   <preference name="android-build-tool" value="gradle" />
   <gap:plugin name="de.appplant.cordova.plugin.local-notification" source="npm" />
