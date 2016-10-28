@@ -73,7 +73,7 @@ var app = {
                 link += "&username=" + username;
                 link += "&password=" + encodeURIComponent(Base64.encode(password));
                 link += "&format=json";
-                alert("Login link: " + link);
+                console.log("Login link: " + link);
                 
                 $.ajax({
                     url: link,
@@ -248,8 +248,8 @@ var app = {
                      alert("Error: " + obj.Data[i].Error);
                 }       
             }
-//            alert ("Error: " + result[0].Error);
-//            alert ("Order: " + result[0].OrderID);
+            alert ("Error: " + result[0].Error);
+            alert ("Order: " + result[0].OrderID);
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
