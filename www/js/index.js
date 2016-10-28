@@ -248,71 +248,111 @@ var app = {
     },
 
     //checking with the server
+//    checkQrCode: function(){
+//        alert("Check QR Code");
+//        var qrCode = document.getElementById("QRCode").value;
+//        alert(qrCode);
+//        //qrCode = "92885048";
+//        
+//        app.doLogin();
+//        
+//        var link = "http://ducktours.workflowfirst.net/tms/";
+//        var funcId = "Functions:_ScanQRCode";
+//        var record = {  "QRCode": qrCode
+//                     };
+//        
+//        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+//
+//        //var printText = "";
+//        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
+//            alert("Data: " + data);
+//            //Length of JSON object
+//            //alert(Object.keys(obj.employees[0]).length);
+//            
+//            var obj = JSON.parse(data);
+//            alert(obj[0]);
+//            for (var i in obj) {
+//                if (obj[i].OrderID!=="" && obj[i].OrderID!==undefined){
+//                    alert("Order: " + obj[i].OrderID);
+////                    printText += "Transaction Receipt\r\n";
+////                    printText += "--------------------\r\n";
+////                    printText += "\r\n";
+////                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
+////                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
+////                    printText += "Purchased Product:\r\n";
+////                    printText += obj[i].PurchasedProduct + "\r\n";
+////                    alert(printText);
+//                }
+//                if (obj[i].TicketNumber!=="" && obj[i].TicketNumber!==undefined){
+//                    alert ("Ticket Number: " + obj[i].TicketNumber);
+////                    printText += "Venue Reference Transaction Ticket \r\n";
+////                    printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
+////                    printText += "Date: " + obj[i].Date + "\r\n";
+////                    printText += "--------------------\r\n";
+////                    printText += "\r\n";
+////                    if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
+////                        printText += "Product Name: " + obj[i].ProductName + "\r\n";
+////                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
+////                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
+////                    }
+////                    if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
+////                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
+////                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
+////                    }
+////                    if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
+////                        printText += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+////                    }
+////                    alert(printText);
+//                }
+//                if (obj[i].Error!=="" && obj[i].Error!==undefined){
+//                     alert("There is an error with the order number/ticket number: " + obj[i].Error);
+//                }       
+//            }
+////            alert("Status: " + status);
+////            alert("XHR: " + JSON.stringify(xhr));
+//        });
+//        //return printText;
+//        alert("DONE");
+//    },
+    
+    //checking with the server
     checkQrCode: function(){
         alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
         alert(qrCode);
         //qrCode = "92885048";
-        
+         
         app.doLogin();
-        
+         
         var link = "http://ducktours.workflowfirst.net/tms/";
         var funcId = "Functions:_ScanQRCode";
         var record = {  "QRCode": qrCode
                      };
-        
+         
         alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
-
-        //var printText = "";
+ 
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
             alert("Data: " + data);
-            //Length of JSON object
+            //Lenght of JSON object
             //alert(Object.keys(obj.employees[0]).length);
-            
+             
             var obj = JSON.parse(data);
-            alert(obj[0]);
+            alert("Result: " + obj[0]);
             for (var i in obj) {
-                if (obj[i].OrderID!=="" && obj[i].OrderID!==undefined){
+                if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
-//                    printText += "Transaction Receipt\r\n";
-//                    printText += "--------------------\r\n";
-//                    printText += "\r\n";
-//                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
-//                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
-//                    printText += "Purchased Product:\r\n";
-//                    printText += obj[i].PurchasedProduct + "\r\n";
-//                    alert(printText);
                 }
-                if (obj[i].TicketNumber!=="" && obj[i].TicketNumber!==undefined){
+                if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
-//                    printText += "Venue Reference Transaction Ticket \r\n";
-//                    printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
-//                    printText += "Date: " + obj[i].Date + "\r\n";
-//                    printText += "--------------------\r\n";
-//                    printText += "\r\n";
-//                    if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
-//                        printText += "Product Name: " + obj[i].ProductName + "\r\n";
-//                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
-//                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
-//                    }
-//                    if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
-//                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
-//                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
-//                    }
-//                    if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
-//                        printText += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
-//                    }
-//                    alert(printText);
                 }
-                if (obj[i].Error!=="" && obj[i].Error!==undefined){
-                     alert("There is an error with the order number/ticket number: " + obj[i].Error);
+                if (obj[i].Error!="" && obj[i].Error!=undefined){
+                     alert("Error: " + obj[i].Error);
                 }       
             }
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
-        //return printText;
-        alert("DONE");
+        alert("Done");
     },
 
     timeConverter: function (UNIX_timestamp){
