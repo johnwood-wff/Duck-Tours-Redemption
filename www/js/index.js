@@ -50,6 +50,20 @@ var app = {
     doLogin: function(){
         var link = "http://ducktours.workflowfirst.net/tms/";
         
+        $.ajax({
+            url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
+            dataType: 'jsonp',
+            async: false,
+            statusCode: {
+                404: function() {
+                    console.log( "Error with logout");
+                },
+                200: function(json){
+                    alert("Logout success: " + JSON.stringify(json));
+                }
+            }
+        }); 
+        
         //getting username and password
         var loginInfo = "";
         if (localStorage.length > 0){
@@ -84,7 +98,7 @@ var app = {
                             console.log( "Error with login");
                         },
                         200: function(json){
-                            console.log("Login success: " + JSON.stringify(json));
+                            alert("Login success: " + JSON.stringify(json));
                         }
                     }
                 });           
