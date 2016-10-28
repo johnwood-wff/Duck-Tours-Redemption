@@ -239,13 +239,13 @@ var app = {
             var obj = JSON.parse(data);
             alert("Result: " + obj);
             for (var i in obj) {
-                if (obj.Data[i].OrderID!=""){
+                if (obj[i].OrderID!=""){
                     alert("Order: " + obj[i].OrderID);
                 }
-                if (obj.Data[i].TicketNumber!=""){
+                if (obj[i].TicketNumber!=""){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
                 }
-                if (obj.Data[i].Error!=""){
+                if (obj[i].Error!=""){
                      alert("Error: " + obj[i].Error);
                 }       
             }
