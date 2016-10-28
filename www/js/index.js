@@ -73,7 +73,7 @@ var app = {
                 link += "&username=" + username;
                 link += "&password=" + encodeURIComponent(Base64.encode(password));
                 link += "&format=json";
-                alert("Login link: " + link);
+                console.log("Login link: " + link);
                 
                 $.ajax({
                     url: link,
@@ -265,6 +265,7 @@ var app = {
             //alert(Object.keys(obj.employees[0]).length);
             
             var obj = JSON.parse(data);
+            alert(obj[0]);
             var printText = "";
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
