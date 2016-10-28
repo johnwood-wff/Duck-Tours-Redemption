@@ -236,20 +236,20 @@ var app = {
             //Lenght of JSON object
             //alert(Object.keys(obj.employees[0]).length);
             
-            var result = JSON.parse(data);
-            for (var i in obj.Data) {
+            var obj = JSON.parse(data);
+            for (var i in obj) {
                 if (obj.Data[i].OrderID!=""){
-                    alert("Order: " + obj.Data[i].OrderID);
+                    alert("Order: " + obj[i].OrderID);
                 }
                 if (obj.Data[i].TicketNumber!=""){
-                    alert ("Ticket Number: " + obj.Data[i].TicketNumber);
+                    alert ("Ticket Number: " + obj[i].TicketNumber);
                 }
                 if (obj.Data[i].Error!=""){
-                     alert("Error: " + obj.Data[i].Error);
+                     alert("Error: " + obj[i].Error);
                 }       
             }
-            alert ("Error: " + result[0].Error);
-            alert ("Order: " + result[0].OrderID);
+//            alert ("Error: " + obj[0].Error);
+//            alert ("Order: " + obj[0].OrderID);
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
