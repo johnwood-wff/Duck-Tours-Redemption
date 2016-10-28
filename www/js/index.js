@@ -73,7 +73,7 @@ var app = {
                 link += "&username=" + username;
                 link += "&password=" + encodeURIComponent(Base64.encode(password));
                 link += "&format=json";
-                console.log("Login link: " + link);
+                alert("Login link: " + link);
                 
                 $.ajax({
                     url: link,
