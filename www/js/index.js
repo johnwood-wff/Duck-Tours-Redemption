@@ -233,12 +233,25 @@ var app = {
 
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
             alert("Data: " + data);
+            //Lenght of JSON object
+            //alert(Object.keys(obj.employees[0]).length);
+            
             var result = JSON.parse(data);
-            alert ("Error: " + result.Error);
-            alert ("Order: " + result.OrderID);
-            alert ("Ticket Number: " + result.TicketNumber);
-            alert("Status: " + status);
-            alert("XHR: " + JSON.stringify(xhr));
+            for (var i in obj.Data) {
+                if (obj.Data[i].OrderID!=""){
+                    alert("Order: " + obj.Data[i].OrderID);
+                }
+                if (obj.Data[i].TicketNumber!=""){
+                    alert ("Ticket Number: " + obj.Data[i].TicketNumber);
+                }
+                if (obj.Data[i].Error!=""){
+                     alert("Error: " + obj.Data[i].Error);
+                }       
+            }
+//            alert ("Error: " + result[0].Error);
+//            alert ("Order: " + result[0].OrderID);
+//            alert("Status: " + status);
+//            alert("XHR: " + JSON.stringify(xhr));
         });
         alert("Done");
     },
