@@ -237,6 +237,7 @@ var app = {
             //alert(Object.keys(obj.employees[0]).length);
             
             var obj = JSON.parse(data);
+            alert("Result: " + obj);
             for (var i in obj) {
                 if (obj.Data[i].OrderID!=""){
                     alert("Order: " + obj[i].OrderID);
