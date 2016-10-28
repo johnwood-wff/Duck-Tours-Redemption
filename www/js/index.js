@@ -237,7 +237,7 @@ var app = {
             //alert(Object.keys(obj.employees[0]).length);
             
             var obj = JSON.parse(data);
-            alert("Result: " + obj);
+            alert("Result: " + obj[0]);
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
@@ -252,7 +252,6 @@ var app = {
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
-        alert("Done");
     },
 
     timeConverter: function (UNIX_timestamp){
