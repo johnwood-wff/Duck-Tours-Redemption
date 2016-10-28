@@ -249,9 +249,10 @@ var app = {
                      alert("Error: " + obj[i].Error);
                 }       
             }
-//            alert("Status: " + status);
-//            alert("XHR: " + JSON.stringify(xhr));
+            alert("Status: " + status);
+            alert("XHR: " + JSON.stringify(xhr));
         });
+        alert("DONE");
     },
 
     timeConverter: function (UNIX_timestamp){
