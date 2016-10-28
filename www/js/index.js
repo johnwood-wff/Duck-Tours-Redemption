@@ -143,27 +143,31 @@ var app = {
 
     saveInfo: function (key, value) {
         console.log("Save Data with key: " + key + " and value: " + value);
+        var removeItem = false;
         for (var i = 0; i < localStorage.length; i++){
             //alert(localStorage.key(i));
             // && (localStorage.key(i)!=="lastApprovalNumber") && (localStorage.key(i)!=="enableLocation") && (localStorage.key(i)!=="locationTimer"))
             if (localStorage.key(i)!=key){
                 localStorage.removeItem(key);
-                $.ajax({
-                    url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
-                    dataType: 'jsonp',
-                    async: false,
-                    statusCode: {
-                        404: function() {
-                            console.log( "Error with logout");
-                        },
-                        200: function(json){
-                            console.log("Logout success: " + JSON.stringify(json));
-                        }
-                    }
-                });
+                removeItem = true;
             }
         }
         
+        if (removeItem===true){
+            $.ajax({
+                url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
+                dataType: 'jsonp',
+                async: false,
+                statusCode: {
+                    404: function() {
+                        console.log( "Error with logout");
+                    },
+                    200: function(json){
+                        console.log("Logout success: " + JSON.stringify(json));
+                    }
+                }
+            });
+        }
         localStorage.setItem(key, value); 
         app.showAlert("Data was saved", "Save", 0);
     },
@@ -259,6 +263,7 @@ var app = {
         
         alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
 
+        var printText = "";
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
             alert("Data: " + data);
             //Length of JSON object
@@ -266,9 +271,8 @@ var app = {
             
             var obj = JSON.parse(data);
             alert(obj[0]);
-            var printText = "";
             for (var i in obj) {
-                if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
+                if (obj[i].OrderID!=="" && obj[i].OrderID!==undefined){
                     alert("Order: " + obj[i].OrderID);
                     printText += "Transaction Receipt\r\n";
                     printText += "--------------------\r\n";
@@ -279,35 +283,35 @@ var app = {
                     printText += obj[i].PurchasedProduct + "\r\n";
                     alert(printText);
                 }
-                if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
+                if (obj[i].TicketNumber!=="" && obj[i].TicketNumber!==undefined){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
                     printText += "Venue Reference Transaction Ticket \r\n";
                     printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
                     printText += "Date: " + obj[i].Date + "\r\n";
                     printText += "--------------------\r\n";
                     printText += "\r\n";
-                    if (obj[i].ProductName!="" && obj[i].ProductName!=undefined){
+                    if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
                         printText += "Product Name: " + obj[i].ProductName + "\r\n";
                         printText += "Merchant: " + obj[i].Merchant + "\r\n";
                         printText += "Attraction: " + obj[i].Attraction + "\r\n";
                     }
-                    if (obj[i].Attraction!="" && obj[i].Attraction!=undefined){
+                    if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
                         printText += "Merchant: " + obj[i].Merchant + "\r\n";
                         printText += "Attraction: " + obj[i].Attraction + "\r\n";
                     }
-                    if (obj[i].EntranceTicketNo!="" && obj[i].EntranceTicketNo!=undefined){
+                    if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
                         printText += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
                     }
                     alert(printText);
                 }
-                if (obj[i].Error!="" && obj[i].Error!=undefined){
+                if (obj[i].Error!=="" && obj[i].Error!==undefined){
                      alert("There is an error with the order number/ticket number: " + obj[i].Error);
                 }       
             }
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
-        return printText;
+        //return printText;
         //alert("DONE");
     },
 
