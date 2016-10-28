@@ -50,20 +50,6 @@ var app = {
     doLogin: function(){
         var link = "http://ducktours.workflowfirst.net/tms/";
         
-        $.ajax({
-            url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
-            dataType: 'jsonp',
-            async: false,
-            statusCode: {
-                404: function() {
-                    console.log( "Error with logout");
-                },
-                200: function(json){
-                    alert("Logout success: " + JSON.stringify(json));
-                }
-            }
-        }); 
-        
         //getting username and password
         var loginInfo = "";
         if (localStorage.length > 0){
@@ -98,7 +84,7 @@ var app = {
                             console.log( "Error with login");
                         },
                         200: function(json){
-                            alert("Login success: " + JSON.stringify(json));
+                            console.log("Login success: " + JSON.stringify(json));
                         }
                     }
                 });           
@@ -160,8 +146,21 @@ var app = {
         for (var i = 0; i < localStorage.length; i++){
             //alert(localStorage.key(i));
             // && (localStorage.key(i)!=="lastApprovalNumber") && (localStorage.key(i)!=="enableLocation") && (localStorage.key(i)!=="locationTimer"))
-            if (localStorage.key(i)!==key){
+            if (localStorage.key(i)!=key){
                 localStorage.removeItem(key);
+                $.ajax({
+                    url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
+                    dataType: 'jsonp',
+                    async: false,
+                    statusCode: {
+                        404: function() {
+                            console.log( "Error with logout");
+                        },
+                        200: function(json){
+                            console.log("Logout success: " + JSON.stringify(json));
+                        }
+                    }
+                });
             }
         }
         
@@ -224,6 +223,21 @@ var app = {
                 username.value = "";
                 password.value = "";
                 app.showAlert("All saved data was cleared", "Clear data", 0);
+                  
+                $.ajax({
+                    url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
+                    dataType: 'jsonp',
+                    async: false,
+                    statusCode: {
+                        404: function() {
+                            console.log( "Error with logout");
+                        },
+                        200: function(json){
+                            console.log("Logout success: " + JSON.stringify(json));
+                        }
+                    }
+                }); 
+        
               }
             },"Clear Data",["Cancel","OK"]
         );
@@ -247,26 +261,53 @@ var app = {
 
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
             alert("Data: " + data);
-            //Lenght of JSON object
+            //Length of JSON object
             //alert(Object.keys(obj.employees[0]).length);
             
             var obj = JSON.parse(data);
-            alert("Result: " + obj[0]);
+            var printText = "";
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
+                    printText += "Transaction Receipt\r\n";
+                    printText += "--------------------\r\n";
+                    printText += "\r\n";
+                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
+                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
+                    printText += "Purchased Product:\r\n";
+                    printText += obj[i].PurchasedProduct + "\r\n";
+                    alert(printText);
                 }
                 if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
+                    printText += "Venue Reference Transaction Ticket \r\n";
+                    printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
+                    printText += "Date: " + obj[i].Date + "\r\n";
+                    printText += "--------------------\r\n";
+                    printText += "\r\n";
+                    if (obj[i].ProductName!="" && obj[i].ProductName!=undefined){
+                        printText += "Product Name: " + obj[i].ProductName + "\r\n";
+                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
+                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
+                    }
+                    if (obj[i].Attraction!="" && obj[i].Attraction!=undefined){
+                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
+                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
+                    }
+                    if (obj[i].EntranceTicketNo!="" && obj[i].EntranceTicketNo!=undefined){
+                        printText += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+                    }
+                    alert(printText);
                 }
                 if (obj[i].Error!="" && obj[i].Error!=undefined){
-                     alert("Error: " + obj[i].Error);
+                     alert("There is an error with the order number/ticket number: " + obj[i].Error);
                 }       
             }
-            alert("Status: " + status);
-            alert("XHR: " + JSON.stringify(xhr));
+//            alert("Status: " + status);
+//            alert("XHR: " + JSON.stringify(xhr));
         });
-        alert("DONE");
+        return printText;
+        //alert("DONE");
     },
 
     timeConverter: function (UNIX_timestamp){

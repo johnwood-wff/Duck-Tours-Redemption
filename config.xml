@@ -74,8 +74,8 @@
   <access origin="geo:*" launch-external="yes"/>
 
   <preference name="android-build-tool" value="gradle" />
-  <gap:plugin name="de.appplant.cordova.plugin.local-notification" source="npm" />
-  <!--<plugin name="cordova-plugin-background-mode" spec="0.6.4" source="npm" />
+<!--<gap:plugin name="de.appplant.cordova.plugin.local-notification" source="npm" />
+  <plugin name="cordova-plugin-background-mode" spec="0.6.4" source="npm" />
   <plugin name="fi.avaus.cordova.geolocation" spec="0.3.11" source="pgb" />
   <plugin name="cordova-plugin-badge" spec="0.7.2" source="npm" />
 -->
