@@ -248,7 +248,7 @@ var app = {
 //        });
 
 
-        $.post(link + "runfunction.aspx?id=" + funcId + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
+        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
             alert(data);
             alert(status);
             alert(xhr);

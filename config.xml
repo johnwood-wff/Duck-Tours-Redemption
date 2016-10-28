@@ -69,7 +69,8 @@
   
   <plugin name="cordova-plugin-whitelist"/>
   <access origin="*"/>
-  <access origin="http://*.workflowfirst.net"/>
+  <access origin="http://*.workflowfirst.net" />
+  <access origin="http://*.workflowfirst.net" />
   <access origin="http://ducktours.workflowfirst.net/tms/*" />
   <access origin="geo:*" launch-external="yes"/>
 
