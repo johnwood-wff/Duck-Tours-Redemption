@@ -263,7 +263,7 @@ var app = {
 //        
 //        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
 //
-//        //var printText = "";
+//        //var printReceipt = "";
 //        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
 //            alert("Data: " + data);
 //            //Length of JSON object
@@ -274,35 +274,35 @@ var app = {
 //            for (var i in obj) {
 //                if (obj[i].OrderID!=="" && obj[i].OrderID!==undefined){
 //                    alert("Order: " + obj[i].OrderID);
-////                    printText += "Transaction Receipt\r\n";
-////                    printText += "--------------------\r\n";
-////                    printText += "\r\n";
-////                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
-////                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
-////                    printText += "Purchased Product:\r\n";
-////                    printText += obj[i].PurchasedProduct + "\r\n";
-////                    alert(printText);
+////                    printReceipt += "Transaction Receipt\r\n";
+////                    printReceipt += "--------------------\r\n";
+////                    printReceipt += "\r\n";
+////                    printReceipt += "Order Number: " + obj[i].OrderID + "\r\n";
+////                    printReceipt += "Customer Name: " + obj[i].CustomerName + "\r\n";
+////                    printReceipt += "Purchased Product:\r\n";
+////                    printReceipt += obj[i].PurchasedProduct + "\r\n";
+////                    alert(printReceipt);
 //                }
 //                if (obj[i].TicketNumber!=="" && obj[i].TicketNumber!==undefined){
 //                    alert ("Ticket Number: " + obj[i].TicketNumber);
-////                    printText += "Venue Reference Transaction Ticket \r\n";
-////                    printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
-////                    printText += "Date: " + obj[i].Date + "\r\n";
-////                    printText += "--------------------\r\n";
-////                    printText += "\r\n";
+////                    printReceipt += "Venue Reference Transaction Ticket \r\n";
+////                    printReceipt += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
+////                    printReceipt += "Date: " + obj[i].Date + "\r\n";
+////                    printReceipt += "--------------------\r\n";
+////                    printReceipt += "\r\n";
 ////                    if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
-////                        printText += "Product Name: " + obj[i].ProductName + "\r\n";
-////                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
-////                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
+////                        printReceipt += "Product Name: " + obj[i].ProductName + "\r\n";
+////                        printReceipt += "Merchant: " + obj[i].Merchant + "\r\n";
+////                        printReceipt += "Attraction: " + obj[i].Attraction + "\r\n";
 ////                    }
 ////                    if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
-////                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
-////                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
+////                        printReceipt += "Merchant: " + obj[i].Merchant + "\r\n";
+////                        printReceipt += "Attraction: " + obj[i].Attraction + "\r\n";
 ////                    }
 ////                    if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
-////                        printText += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+////                        printReceipt += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
 ////                    }
-////                    alert(printText);
+////                    alert(printReceipt);
 //                }
 //                if (obj[i].Error!=="" && obj[i].Error!==undefined){
 //                     alert("There is an error with the order number/ticket number: " + obj[i].Error);
@@ -311,7 +311,7 @@ var app = {
 ////            alert("Status: " + status);
 ////            alert("XHR: " + JSON.stringify(xhr));
 //        });
-//        //return printText;
+//        //return printReceipt;
 //        alert("DONE");
 //    },
     
@@ -329,12 +329,12 @@ var app = {
         var record = {  "QRCode": qrCode
                      };
          
-        var printText = "";
+        var printReceipt = "";
+        var referenceTicket = "";
         alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
             alert("Data: " + data);
-            //Lenght of JSON object
             //alert(Object.keys(obj.employees[0]).length);
              
             var obj = JSON.parse(data);
@@ -342,59 +342,76 @@ var app = {
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
-                    alert("Print Text 1: " + printText);
-                    //TODO: Issue with editing String from here
                     if (obj[i].ExchangeForTicket===true){
                         alert("Error: The Order has already been redeemed for tickets");
                     }else{
-                        printText += "Transaction Receipt\r\n";
-                        printText += "--------------------\r\n";
-                        printText += "\r\n";
-                        alert("Print Text 2: " + printText);
-                        printText += "Order Number: " + obj[i].OrderID + "\r\n";
-                        printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
-                        printText += "Purchased Product:\r\n";
-                        printText += obj[i].PurchasedProduct + "\r\n";
+                        //printing the Transaction Receipt
+                        printReceipt += "Transaction Receipt\r\n";
+                        printReceipt += "--------------------\r\n";
+                        printReceipt += "\r\n";
+                        printReceipt += "Order Number: " + obj[i].OrderID + "\r\n";
+                        printReceipt += "Customer Name: " + obj[i].CustomerName + "\r\n";
+                        printReceipt += "Purchased Product:\r\n";
+                        printReceipt += obj[i].PurchasedProduct + "\r\n";
+                        
+                        //TODO: Printing script for transaction receipt is here
+                        alert("Print Transaction Receipt: " + printReceipt);
+                        
+                        var ticketBreakdown = JSON.parse(obj[i].TicketBreakdown);
+                        alert("Total Ticket: " + Object.keys(ticketBreakdown.TicketBreakdown[0]).length);
+                        for(var j in ticketBreakdown.TicketBreakdown){
+                            var ticket = "";
+                            ticket += "Duck Tours Ticket \r\n";
+                            ticket += ticketBreakdown.TicketBreakdown[j].QRCode + "\r\n";
+                            ticket += ticketBreakdown.TicketBreakdown[j].TicketNumber + "\r\n";
+                            //ticket += ticketBreakdown.TicketBreakdown[j].TicketType + "\r\n";
+                            //ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
+                            
+                            //TODO: printing the Duck Tours ticket with QR code here
+                            alert("Duck Tour Ticket: " + ticket);
+                        }                  
                     }
-                    alert("Print Text 3: " + printText);
-                }
-                if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
-                    alert ("Ticket Number: " + obj[i].TicketNumber);
-                    alert("Print Text 1: " + printText);
-                    if (obj[i].Error!="" && obj[i].Error!=undefined){
-                        alert("Error: " + obj[i].Error);
+                }else{
+                    if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
+                        alert ("Ticket Number: " + obj[i].TicketNumber);
+                        if (obj[i].Error!="" && obj[i].Error!=undefined){
+                            alert("Error: " + obj[i].Error);
+                        }else{
+                            referenceTicket += "Venue Reference Transaction Ticket \r\n";
+                            referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
+                            referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
+                            referenceTicket += "Date: " + obj[i].Date + "\r\n";
+                            referenceTicket += "--------------------\r\n";
+                            referenceTicket += "\r\n";
+                            if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
+                                referenceTicket += "Product Name: " + obj[i].ProductName + "\r\n";
+                                referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
+                                referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
+                            }
+                            if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
+                                referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
+                                referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
+                            }
+                            if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
+                                referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+                            }
+                            
+                            //TODO: printing the Reference Ticket here
+                            alert("Print Reference Ticket: " + referenceTicket);
+                        }
                     }else{
-                        printText += "Venue Reference Transaction Ticket \r\n";
-                        printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
-                        printText += "Date: " + obj[i].Date + "\r\n";
-                        printText += "--------------------\r\n";
-                        printText += "\r\n";
-                        alert("Print Text 2: " + printText);
-                        if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
-                            printText += "Product Name: " + obj[i].ProductName + "\r\n";
-                            printText += "Merchant: " + obj[i].Merchant + "\r\n";
-                            printText += "Attraction: " + obj[i].Attraction + "\r\n";
-                        }
-                        if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
-                            printText += "Merchant: " + obj[i].Merchant + "\r\n";
-                            printText += "Attraction: " + obj[i].Attraction + "\r\n";
-                        }
-                        if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
-                            printText += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
-                        }
+                        if (obj[i].Error!="" && obj[i].Error!=undefined){
+                             alert("Error: " + obj[i].Error);
+                        }  
                     }
-                    alert("Prind Text 3: " + printText);
-                }
-                if (obj[i].Error!="" && obj[i].Error!=undefined){
-                     alert("Error: " + obj[i].Error);
-                }       
+                }     
             }
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
         alert("Done");
     },
-
+    
     timeConverter: function (UNIX_timestamp){
       var d = new Date(UNIX_timestamp);
       return d.toString();
