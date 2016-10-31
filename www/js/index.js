@@ -343,39 +343,39 @@ var app = {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
                     alert("Print Text 1: " + printText);
-                    //TODO: Issue with editing String from here
-                    printText += "Transaction Receipt\r\n";
-                    printText += "--------------------\r\n";
-                    printText += "\r\n";
-                    alert("Print Text 2: " + printText);
-                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
-                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
-                    printText += "Purchased Product:\r\n";
-                    printText += obj[i].PurchasedProduct + "\r\n";
-                    alert("Print Text 3: " + printText);
+//                    //TODO: Issue with editing String from here
+//                    printText += "Transaction Receipt\r\n";
+//                    printText += "--------------------\r\n";
+//                    printText += "\r\n";
+//                    alert("Print Text 2: " + printText);
+//                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
+//                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
+//                    printText += "Purchased Product:\r\n";
+//                    printText += obj[i].PurchasedProduct + "\r\n";
+//                    alert("Print Text 3: " + printText);
                 }
                 if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
                     alert("Print Text 1: " + printText);
-                    printText += "Venue Reference Transaction Ticket \r\n";
-                    printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
-                    printText += "Date: " + obj[i].Date + "\r\n";
-                    printText += "--------------------\r\n";
-                    printText += "\r\n";
-                    alert("Print Text 2: " + printText);
-                    if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
-                        printText += "Product Name: " + obj[i].ProductName + "\r\n";
-                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
-                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
-                    }
-                    if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
-                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
-                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
-                    }
-                    if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
-                        printText += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
-                    }
-                    alert("Prind Text 3: " + printText);
+//                    printText += "Venue Reference Transaction Ticket \r\n";
+//                    printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
+//                    printText += "Date: " + obj[i].Date + "\r\n";
+//                    printText += "--------------------\r\n";
+//                    printText += "\r\n";
+//                    alert("Print Text 2: " + printText);
+//                    if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
+//                        printText += "Product Name: " + obj[i].ProductName + "\r\n";
+//                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
+//                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
+//                    }
+//                    if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
+//                        printText += "Merchant: " + obj[i].Merchant + "\r\n";
+//                        printText += "Attraction: " + obj[i].Attraction + "\r\n";
+//                    }
+//                    if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
+//                        printText += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+//                    }
+//                    alert("Prind Text 3: " + printText);
                 }
                 if (obj[i].Error!="" && obj[i].Error!=undefined){
                      alert("Error: " + obj[i].Error);
