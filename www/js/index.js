@@ -342,7 +342,7 @@ var app = {
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
-                    alert("Print Text 1: " + printText);
+//                    alert("Print Text 1: " + printText);
 //                    //TODO: Issue with editing String from here
 //                    printText += "Transaction Receipt\r\n";
 //                    printText += "--------------------\r\n";
@@ -356,7 +356,7 @@ var app = {
                 }
                 if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
-                    alert("Print Text 1: " + printText);
+//                    alert("Print Text 1: " + printText);
 //                    printText += "Venue Reference Transaction Ticket \r\n";
 //                    printText += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
 //                    printText += "Date: " + obj[i].Date + "\r\n";
