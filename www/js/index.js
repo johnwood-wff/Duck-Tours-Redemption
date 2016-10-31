@@ -364,8 +364,8 @@ var app = {
                             ticket += "Duck Tours Ticket \r\n";
                             ticket += ticketBreakdown.TicketBreakdown[j].QRCode + "\r\n";
                             ticket += ticketBreakdown.TicketBreakdown[j].TicketNumber + "\r\n";
-                            //ticket += ticketBreakdown.TicketBreakdown[j].TicketType + "\r\n";
-                            //ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
+                            ticket += ticketBreakdown.TicketBreakdown[j].TicketType + "\r\n";
+                            ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
                             
                             //TODO: printing the Duck Tours ticket with QR code here
                             alert("Duck Tour Ticket: " + ticket);
