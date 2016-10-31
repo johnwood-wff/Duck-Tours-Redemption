@@ -274,19 +274,14 @@ var app = {
 //            for (var i in obj) {
 //                if (obj[i].OrderID!=="" && obj[i].OrderID!==undefined){
 //                    alert("Order: " + obj[i].OrderID);
-//                    if (obj[i].ExchangeForTicket===true){
-//                        alert("Error: The Order has already been redeemed for tickets");
-//                    }else{
-//                        printText += "Transaction Receipt\r\n";
-//                        printText += "--------------------\r\n";
-//                        printText += "\r\n";
-//                        //alert("Print Text 2: " + printText);
-//                        printText += "Order Number: " + obj[i].OrderID + "\r\n";
-//                        printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
-//                        printText += "Purchased Product (Product Name - Quantity):\r\n";
-//                        printText += obj[i].PurchasedProduct + "\r\n";
-//                        alert( printText);
-//                    }
+////                    printText += "Transaction Receipt\r\n";
+////                    printText += "--------------------\r\n";
+////                    printText += "\r\n";
+////                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
+////                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
+////                    printText += "Purchased Product:\r\n";
+////                    printText += obj[i].PurchasedProduct + "\r\n";
+////                    alert(printText);
 //                }
 //                if (obj[i].TicketNumber!=="" && obj[i].TicketNumber!==undefined){
 //                    alert ("Ticket Number: " + obj[i].TicketNumber);
@@ -345,7 +340,6 @@ var app = {
             var obj = JSON.parse(data);
             alert("Result: " + obj[0]);
             for (var i in obj) {
-                //alert(obj[i]);
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
                     alert("Print Text 1: " + printText);
