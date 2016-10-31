@@ -342,17 +342,17 @@ var app = {
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
-//                    alert("Print Text 1: " + printText);
-//                    //TODO: Issue with editing String from here
-//                    printText += "Transaction Receipt\r\n";
-//                    printText += "--------------------\r\n";
-//                    printText += "\r\n";
-//                    alert("Print Text 2: " + printText);
-//                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
-//                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
-//                    printText += "Purchased Product:\r\n";
-//                    printText += obj[i].PurchasedProduct + "\r\n";
-//                    alert("Print Text 3: " + printText);
+                    alert("Print Text 1: " + printText);
+                    //TODO: Issue with editing String from here
+                    printText += "Transaction Receipt\r\n";
+                    printText += "--------------------\r\n";
+                    printText += "\r\n";
+                    alert("Print Text 2: " + printText);
+                    printText += "Order Number: " + obj[i].OrderID + "\r\n";
+                    printText += "Customer Name: " + obj[i].CustomerName + "\r\n";
+                    printText += "Purchased Product:\r\n";
+                    printText += obj[i].PurchasedProduct + "\r\n";
+                    alert("Print Text 3: " + printText);
                 }
                 if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                     alert ("Ticket Number: " + obj[i].TicketNumber);
