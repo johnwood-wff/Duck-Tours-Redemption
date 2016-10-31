@@ -351,14 +351,13 @@ var app = {
                         printReceipt += "\r\n";
                         printReceipt += "Order Number: " + obj[i].OrderID + "\r\n";
                         printReceipt += "Customer Name: " + obj[i].CustomerName + "\r\n";
-                        printReceipt += "Purchased Product:\r\n";
+                        printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                         printReceipt += obj[i].PurchasedProduct + "\r\n";
                         
                         //TODO: Printing script for transaction receipt is here
-                        alert("Print Transaction Receipt: " + printReceipt);
+                        alert(printReceipt);
                         
                         var ticketBreakdown = JSON.parse(obj[i].TicketBreakdown);
-                        alert("Total Ticket: " + Object.keys(ticketBreakdown.TicketBreakdown[0]).length);
                         for(var j in ticketBreakdown.TicketBreakdown){
                             var ticket = "";
                             ticket += "Duck Tours Ticket \r\n";
@@ -368,7 +367,7 @@ var app = {
                             ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
                             
                             //TODO: printing the Duck Tours ticket with QR code here
-                            alert("Duck Tour Ticket: " + ticket);
+                            alert(ticket);
                         }                  
                     }
                 }else{
@@ -394,10 +393,16 @@ var app = {
                             }
                             if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
                                 referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+                            }else{
+                                navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
+                                    if (results.buttonIndex==2) {
+                                        referenceTicket += "Entrance Ticket Number: " + results.input1;
+                                    }
+                                }, "Enter Entrance Ticket Number", ["Cancel", "OK"]);
                             }
                             
                             //TODO: printing the Reference Ticket here
-                            alert("Print Reference Ticket: " + referenceTicket);
+                            alert(referenceTicket);
                         }
                     }else{
                         if (obj[i].Error!="" && obj[i].Error!=undefined){
