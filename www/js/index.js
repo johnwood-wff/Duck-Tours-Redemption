@@ -345,7 +345,7 @@ var app = {
             var obj = JSON.parse(data);
             alert("Result: " + obj[0]);
             for (var i in obj) {
-                alert(obj[i]);
+                //alert(obj[i]);
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     alert("Order: " + obj[i].OrderID);
                     alert("Print Text 1: " + printText);
