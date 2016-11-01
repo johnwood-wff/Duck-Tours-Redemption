@@ -273,18 +273,26 @@ var app = {
         var funcId = "Functions:_ScanQRCode";
         var record = {  "QRCode": qrCode
                      };
-         
-        var printReceipt = "";
-        var referenceTicket = "";
- 
         
-        $.when($.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)))).done(app.checkResult(data, status, xhr));
+        var url = link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record));
+        $.ajax({
+            url: url,
+            dataType: 'jsonp',
+            async: false,
+            success: function(data){
+               app.checkResult();
+            }
+        });
+        
+        //$.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), app.checkResult);
        
         alert("Done");
     },
     
     checkResult: function(data, status, xhr) {  
         alert("Check Result");
+        var printReceipt = "";
+        var referenceTicket = "";
         var obj = JSON.parse(data);
         for (var i in obj) {
             if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
