@@ -318,7 +318,8 @@ var app = {
                             }
                             if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
                                 referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
-//                            }else{
+                            }
+//                                else{
 //                                navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
 //                                    if (results.buttonIndex==1) {
 //                                        referenceTicket += "Entrance Ticket Number: " + results.input1;
