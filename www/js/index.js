@@ -317,9 +317,9 @@ var app = {
     
     //checking with the server
     checkQrCode: function(){
-        alert("Check QR Code");
+        //alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
-        alert(qrCode);
+        app.showAlert("Scanned QR code value: " + qrCode, "Scanned QR code", 0);
         //qrCode = "92885048";
          
         app.doLogin();
@@ -331,19 +331,19 @@ var app = {
          
         var printReceipt = "";
         var referenceTicket = "";
-        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+        //alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
-            alert("Data: " + data);
+            //alert("Data: " + data);
             //alert(Object.keys(obj.employees[0]).length);
              
             var obj = JSON.parse(data);
             //alert("Result: " + obj[0]);
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
-                    alert("Order: " + obj[i].OrderID);
+                    //alert("Order: " + obj[i].OrderID);
                     if (obj[i].ExchangeForTicket===true){
-                        alert("Error: The Order has already been redeemed for tickets");
+                        app.showAlert("The Order has already been redeemed for tickets.", "Order code error", 0);
                     }else{
                         //printing the Transaction Receipt
                         printReceipt += "Transaction Receipt\r\n";
@@ -355,7 +355,7 @@ var app = {
                         printReceipt += obj[i].PurchasedProduct + "\r\n";
                         
                         //TODO: Printing script for transaction receipt is here
-                        alert(printReceipt);
+                        app.showAlert(printReceipt, "Printed Receipt", 0);
                         
                         var ticketBreakdown = JSON.parse(obj[i].TicketBreakdown);
                         for(var j in ticketBreakdown.TicketBreakdown){
@@ -367,16 +367,16 @@ var app = {
                             ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
                             
                             //TODO: printing the Duck Tours ticket with QR code here
-                            alert(ticket);
+                            app.showAlert(ticket, "Printed Duck Tour Ticket", 0);
                         }                  
                     }
                 }else{
                     if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
-                        alert ("Ticket Number: " + obj[i].TicketNumber);
+                        //alert ("Ticket Number: " + obj[i].TicketNumber);
                         if (obj[i].Error!="" && obj[i].Error!=undefined){
-                            alert("Error: " + obj[i].Error);
+                            app.showAlert(obj[i].Error, "Error with scanned code", 0);
                         }else{
-                            referenceTicket += "Venue Reference Transaction Ticket \r\n";
+                            referenceTicket += "Venue Reference Transaction Ticket\r\n";
                             referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
                             referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
                             referenceTicket += "Date: " + obj[i].Date + "\r\n";
@@ -402,11 +402,11 @@ var app = {
                             }
                             
                             //TODO: printing the Reference Ticket here
-                            alert(referenceTicket);
+                            app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
                         }
                     }else{
                         if (obj[i].Error!="" && obj[i].Error!=undefined){
-                             alert("Error: " + obj[i].Error);
+                             app.showAlert(obj[i].Error, "Error with scanned code", 0);
                         }  
                     }
                 }     
@@ -414,7 +414,7 @@ var app = {
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
-        alert("Done");
+//        alert("Done");
     },
     
     timeConverter: function (UNIX_timestamp){
