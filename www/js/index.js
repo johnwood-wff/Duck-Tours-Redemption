@@ -313,8 +313,8 @@ var app = {
                     //TODO: Printing script for transaction receipt is here
                     app.showAlert(printReceipt, "Transaction Receipt", 0);
 
-                    alert(obj[i].TicketBreakdown);
-                    var ticketBreakdown = JSON.parse(obj[i].TicketBreakdown);
+                    alert(JSON.stringify(obj[i].TicketBreakdown));
+                    var ticketBreakdown = JSON.parse(JSON.stringify(obj[i].TicketBreakdown));
                     for(var j in ticketBreakdown){
                         var ticket = "";
                         ticket += "Duck Tours Ticket\r\n";
