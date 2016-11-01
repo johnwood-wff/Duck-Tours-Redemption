@@ -277,10 +277,15 @@ var app = {
         var url = link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record));
         $.ajax({
             url: url,
-            dataType: 'jsonp',
+            dataType: 'json',
             async: false,
             success: function(data){
-               app.checkResult();
+                alert("ABC");
+                app.checkResult();
+                alert("XYZ");
+            },
+            error: function(){
+                alert("Error");
             }
         });
         
