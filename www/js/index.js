@@ -293,7 +293,6 @@ var app = {
     
     checkResult: function(data, qrCode) { 
         app.showAlert(qrCode, "Scanned QR Code", 0);
-        alert(JSON.stringify(data));
         var printReceipt = "";
         var referenceTicket = "";
         var obj = JSON.parse(JSON.stringify(data));
@@ -314,14 +313,15 @@ var app = {
                     //TODO: Printing script for transaction receipt is here
                     app.showAlert(printReceipt, "Transaction Receipt", 0);
 
+                    alert(obj[i].TicketBreakdown);
                     var ticketBreakdown = JSON.parse(obj[i].TicketBreakdown);
-                    for(var j in ticketBreakdown.TicketBreakdown){
+                    for(var j in ticketBreakdown){
                         var ticket = "";
                         ticket += "Duck Tours Ticket\r\n";
-                        ticket += ticketBreakdown.TicketBreakdown[j].QRCode + "\r\n";
-                        ticket += ticketBreakdown.TicketBreakdown[j].TicketNumber + "\r\n";
-                        ticket += ticketBreakdown.TicketBreakdown[j].TicketType + "\r\n";
-                        ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
+                        ticket += ticketBreakdown[j].QRCode + "\r\n";
+                        ticket += ticketBreakdown[j].TicketNumber + "\r\n";
+                        ticket += ticketBreakdown[j].TicketType + "\r\n";
+                        ticket += ticketBreakdown[j].Balance + "\r\n";
 
                         //TODO: printing the Duck Tours ticket with QR code here
                         app.showAlert(ticket, "Duck Tours Ticket", 0);
