@@ -249,7 +249,6 @@ var app = {
     
     //checking with the server
     checkQrCode: function(){
-        //alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
         //app.showAlert(qrCode, "Scanned QR Code", 0);
         //qrCode = "92885048";
@@ -263,14 +262,10 @@ var app = {
          
         var printReceipt = "";
         var referenceTicket = "";
-        //alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
-            //alert("Data: " + data);
-            //alert(Object.keys(obj.employees[0]).length);
-             
+            
             var obj = JSON.parse(data);
-            //alert("Result: " + obj[0]);
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     if (obj[i].ExchangeForTicket===true){
@@ -317,19 +312,19 @@ var app = {
                                 referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
                                 referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
                             }
-                            if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined){
+                            if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined && obj[i].ProductName==""){
                                 referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
                                 referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
                             }
                             if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
                                 referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
-                            }else{
-                                navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
-                                    if (results.buttonIndex==2) {
-                                        referenceTicket += "Entrance Ticket Number: " + results.input1;
-                                    }
-                                }, "Enter Entrance Ticket Number", ["Cancel", "OK"]);
-                            }
+//                            }else{
+//                                navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
+//                                    if (results.buttonIndex==1) {
+//                                        referenceTicket += "Entrance Ticket Number: " + results.input1;
+//                                    }
+//                                }, "Enter Entrance Ticket Number", ["OK", "Cancel"]);
+//                            }
                             
                             //TODO: printing the Reference Ticket here
                             app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
