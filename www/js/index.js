@@ -277,9 +277,9 @@ var app = {
         var printReceipt = "";
         var referenceTicket = "";
  
-        setTimeout(function () {
-            $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), app.checkResult);
-        }, 2000);
+        
+        $.when($.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)))).then(app.checkResult(data, status, xhr));
+       
         alert("Done");
     },
     
