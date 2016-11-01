@@ -346,7 +346,7 @@ var app = {
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
-//        alert("Done");
+        alert("Done");
     },
     
     timeConverter: function (UNIX_timestamp){
