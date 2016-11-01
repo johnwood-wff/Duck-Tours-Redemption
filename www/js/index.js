@@ -264,7 +264,7 @@ var app = {
     //checking with the server
     checkQrCode: function(){
         var qrCode = document.getElementById("QRCode").value;
-        //app.showAlert(qrCode, "Scanned QR Code", 0);
+        app.showAlert(qrCode, "Scanned QR Code", 0);
         //qrCode = "92885048";
          
         app.doLogin();
@@ -277,11 +277,12 @@ var app = {
         var printReceipt = "";
         var referenceTicket = "";
  
-        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), checkResult);
+        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), app.checkResult);
         alert("Done");
     },
     
-    checkResult: function(data, status, xhr) {          
+    checkResult: function(data, status, xhr) {  
+        alert("Check Result");
         var obj = JSON.parse(data);
         for (var i in obj) {
             if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
@@ -353,6 +354,7 @@ var app = {
                 }
             }     
         }
+        return true;
     },
     
     timeConverter: function (UNIX_timestamp){
