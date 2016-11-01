@@ -271,7 +271,7 @@ var app = {
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     if (obj[i].ExchangeForTicket===true){
-                        app.showAlert("The Order has already been redeemed for tickets", "Error", 0);
+                        alert("The Order has already been redeemed for tickets", "Error", 0);
                     }else{
                         //printing the Transaction Receipt
                         printReceipt += "Transaction Receipt\r\n";
