@@ -62,7 +62,7 @@ var app = {
         }
         
         loginInfo = loginInfo.split(",");
-        console.log("Login Info: " + loginInfo);
+
         
         var username = loginInfo[0];
         var password = loginInfo[1];
@@ -73,7 +73,7 @@ var app = {
                 link += "&username=" + username;
                 link += "&password=" + encodeURIComponent(Base64.encode(password));
                 link += "&format=json";
-                console.log("Login link: " + link);
+
                 
                 $.ajax({
                     url: link,
@@ -81,18 +81,18 @@ var app = {
                     async: false,
                     statusCode: {
                         404: function() {
-                            console.log( "Error with login");
+
                         },
                         200: function(json){
-                            console.log("Login success: " + JSON.stringify(json));
+
                         }
                     }
                 });           
             }else{
-               console.log("No login information found"); 
+
             }
         }else{
-           console.log("No login information found"); 
+
         }  
     },
     
@@ -142,7 +142,7 @@ var app = {
     },
 
     saveInfo: function (key, value) {
-        console.log("Save Data with key: " + key + " and value: " + value);
+
         var removeItem = false;
         for (var i = 0; i < localStorage.length; i++){
             //alert(localStorage.key(i));
@@ -160,10 +160,10 @@ var app = {
                 async: false,
                 statusCode: {
                     404: function() {
-                        console.log( "Error with logout");
+
                     },
                     200: function(json){
-                        console.log("Logout success: " + JSON.stringify(json));
+
                     }
                 }
             });
@@ -173,12 +173,12 @@ var app = {
     },
 
     getSaveData: function(key){
-        console.log("Get Save Data with key: " + key);
+
         var data;
         var value = localStorage.getItem(key);
         if (value!==null){
             data = key.concat(",",value); 
-            console.log("Data: " + data);
+
             return data;
         }else{
             return null;
@@ -186,7 +186,7 @@ var app = {
     },
 
     getLoginInfo: function () {
-        console.log("Get Login Information");
+
         
         var dataStored;
         for (var i = 0; i < localStorage.length; i++){
@@ -234,10 +234,10 @@ var app = {
                     async: false,
                     statusCode: {
                         404: function() {
-                            console.log( "Error with logout");
+
                         },
                         200: function(json){
-                            console.log("Logout success: " + JSON.stringify(json));
+
                         }
                     }
                 }); 
@@ -268,11 +268,10 @@ var app = {
             alert("Data: " + data);
              
             var obj = JSON.parse(data);
-            //alert("Result: " + obj[0]);
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     if (obj[i].ExchangeForTicket===true){
-                        alert("Error: The Order has already been redeemed for tickets");
+                        alert("Error: The Order has already been redeemed for tickets.");
                     }else{
                         //printing the Transaction Receipt
                         printReceipt += "Transaction Receipt\r\n";
@@ -294,6 +293,7 @@ var app = {
                             ticket += ticketBreakdown.TicketBreakdown[j].TicketNumber + "\r\n";
                             ticket += ticketBreakdown.TicketBreakdown[j].TicketType + "\r\n";
                             ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
+console.log(ticket)
                             
                             //TODO: printing the Duck Tours ticket with QR code here
                             alert(ticket);
