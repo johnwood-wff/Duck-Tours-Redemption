@@ -293,6 +293,7 @@ var app = {
     
     checkResult: function(data, qrCode) { 
         app.showAlert(qrCode, "Scanned QR Code", 0);
+        alert(JSON.stringify(data));
         var printReceipt = "";
         var referenceTicket = "";
         var obj = JSON.parse(JSON.stringify(data));
