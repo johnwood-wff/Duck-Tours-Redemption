@@ -249,9 +249,9 @@ var app = {
     
     //checking with the server
     checkQrCode: function(){
-//        alert("Check QR Code");
+        alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
-        alert("Scanned QR code: " + qrCode);
+        alert(qrCode);
         //qrCode = "92885048";
          
         app.doLogin();
