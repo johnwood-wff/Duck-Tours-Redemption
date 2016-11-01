@@ -301,33 +301,51 @@ var app = {
                         if (obj[i].Error!="" && obj[i].Error!=undefined){
                             app.showAlert(obj[i].Error, "Error", 0);
                         }else{
-                            referenceTicket += "Venue Reference Transaction Ticket\r\n";
-                            referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
-                            referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
-                            referenceTicket += "Date: " + obj[i].Date + "\r\n";
-                            referenceTicket += "--------------------\r\n";
-                            referenceTicket += "\r\n";
-                            if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
-                                referenceTicket += "Product Name: " + obj[i].ProductName + "\r\n";
-                                referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
-                                referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
-                            }
-                            if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined && obj[i].ProductName==""){
-                                referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
-                                referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
-                            }
-                            if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
-                                referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
-                            }else{
-                                navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
-                                    if (results.buttonIndex==1) {
-                                        referenceTicket += "Entrance Ticket Number: " + results.input1;
+                            navigator.notification.prompt("Please enter/scan the barcode on Entrance Ticket", function(results){
+                                if (results.buttonIndex==1) {
+                                    referenceTicket += "Venue Reference Transaction Ticket\r\n";
+                                    referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
+                                    referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
+                                    referenceTicket += "Date: " + obj[i].Date + "\r\n";
+                                    referenceTicket += "--------------------\r\n";
+                                    referenceTicket += "\r\n";
+                                    if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
+                                        referenceTicket += "Product Name: " + obj[i].ProductName + "\r\n";
+                                        referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
+                                        referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
                                     }
-                                }, "Enter Entrance Ticket Number", ["OK", "Cancel"]);
-                            }
-                            
-                            //TODO: printing the Reference Ticket here
-                            app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
+                                    if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined && obj[i].ProductName==""){
+                                        referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
+                                        referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
+                                    }
+//                                    if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
+//                                        referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+//                                    }
+                                    referenceTicket += "Entrance Ticket Number: " + results.input1;
+
+                                    //TODO: printing the Reference Ticket here
+                                    app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
+                                }else{
+                                    referenceTicket += "Venue Reference Transaction Ticket\r\n";
+                                    referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
+                                    referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
+                                    referenceTicket += "Date: " + obj[i].Date + "\r\n";
+                                    referenceTicket += "--------------------\r\n";
+                                    referenceTicket += "\r\n";
+                                    if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
+                                        referenceTicket += "Product Name: " + obj[i].ProductName + "\r\n";
+                                        referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
+                                        referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
+                                    }
+                                    if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined && obj[i].ProductName==""){
+                                        referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
+                                        referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
+                                    }
+                                    
+                                    //TODO: printing the Reference Ticket here
+                                    app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
+                                }
+                            }, "Enter Entrance Ticket Number", ["OK", "Cancel"]);
                         }
                     }else{
                         if (obj[i].Error!="" && obj[i].Error!=undefined){
