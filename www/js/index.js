@@ -194,7 +194,7 @@ var app = {
             dataStored += "Key: " + localStorage.key(i) + ", Value: " + localStorage.getItem(localStorage.key(i)) + "\n";
         }
         
-        alert("Stored Data: \n" + dataStored);
+        //alert("Stored Data: \n" + dataStored);
         
         var data = "";
         if (localStorage.getItem("debug")!==""){
@@ -249,9 +249,9 @@ var app = {
     
     //checking with the server
     checkQrCode: function(){
-        alert("Check QR Code");
+//        alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
-        alert(qrCode);
+        alert("Scanned QR code: " + qrCode);
         //qrCode = "92885048";
          
         app.doLogin();
@@ -263,10 +263,10 @@ var app = {
          
         var printReceipt = "";
         var referenceTicket = "";
-        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+//        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
-            alert("Data: " + data);
+//            alert("Data: " + data);
             //alert(Object.keys(obj.employees[0]).length);
              
             var obj = JSON.parse(data);
@@ -346,7 +346,7 @@ var app = {
 //            alert("Status: " + status);
 //            alert("XHR: " + JSON.stringify(xhr));
         });
-        alert("Done");
+//        alert("Done");
     },
     
     timeConverter: function (UNIX_timestamp){
