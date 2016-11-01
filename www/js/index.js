@@ -280,12 +280,11 @@ var app = {
             dataType: 'json',
             async: false,
             success: function(data){
-                alert("ABC");
-                app.checkResult();
-                alert("XYZ");
+                alert("Data: " + data);
+                app.checkResult(data);
             },
             error: function(){
-                alert("Error");
+                app.showAlert("Error with connecting to the server. Please check your wifi/cellulart connection.", "Error", 0);
             }
         });
         
@@ -294,8 +293,9 @@ var app = {
         alert("Done");
     },
     
-    checkResult: function(data, status, xhr) {  
+    checkResult: function(data) {  
         alert("Check Result");
+        alert(data);
         var printReceipt = "";
         var referenceTicket = "";
         var obj = JSON.parse(data);
