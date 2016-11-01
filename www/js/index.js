@@ -318,14 +318,13 @@ var app = {
                             }
                             if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
                                 referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+                            }else{
+                                navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
+                                    if (results.buttonIndex==1) {
+                                        referenceTicket += "Entrance Ticket Number: " + results.input1;
+                                    }
+                                }, "Enter Entrance Ticket Number", ["OK", "Cancel"]);
                             }
-//                                else{
-//                                navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
-//                                    if (results.buttonIndex==1) {
-//                                        referenceTicket += "Entrance Ticket Number: " + results.input1;
-//                                    }
-//                                }, "Enter Entrance Ticket Number", ["OK", "Cancel"]);
-//                            }
                             
                             //TODO: printing the Reference Ticket here
                             app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
