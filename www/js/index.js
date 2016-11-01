@@ -280,7 +280,6 @@ var app = {
             dataType: 'json',
             async: false,
             success: function(data){
-                alert("Data: " + data);
                 app.checkResult(data);
             },
             error: function(){
@@ -290,7 +289,7 @@ var app = {
         
         //$.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), app.checkResult);
        
-        alert("Done");
+        //alert("Done");
     },
     
     checkResult: function(data) {  
@@ -299,7 +298,9 @@ var app = {
         var printReceipt = "";
         var referenceTicket = "";
         var obj = JSON.parse(data);
+        alert("Obj: " + obj);
         for (var i in obj) {
+            alert(obj[i]);
             if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                 if (obj[i].ExchangeForTicket===true){
                     app.showAlert("The Order has already been redeemed for tickets", "Error", 0);
