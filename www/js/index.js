@@ -265,7 +265,7 @@ var app = {
         var referenceTicket = "";
         //alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
-        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record))).done(data){
+        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record))).always(data){
             alert("Data: " + data);
             //alert(Object.keys(obj.employees[0]).length);
              
