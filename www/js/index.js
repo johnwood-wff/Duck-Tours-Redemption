@@ -249,8 +249,9 @@ var app = {
     
     //checking with the server
     checkQrCode: function(){
+        alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
-        alert("Scanned QR code value: " + qrCode);
+        alert(qrCode);
         //qrCode = "92885048";
          
         app.doLogin();
@@ -262,15 +263,17 @@ var app = {
          
         var printReceipt = "";
         var referenceTicket = "";
-        //alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
+        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
             alert("Data: " + data);
+            //alert(Object.keys(obj.employees[0]).length);
              
             var obj = JSON.parse(data);
             //alert("Result: " + obj[0]);
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
+                    alert("Order: " + obj[i].OrderID);
                     if (obj[i].ExchangeForTicket===true){
                         alert("Error: The Order has already been redeemed for tickets");
                     }else{
@@ -301,6 +304,7 @@ var app = {
                     }
                 }else{
                     if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
+                        alert ("Ticket Number: " + obj[i].TicketNumber);
                         if (obj[i].Error!="" && obj[i].Error!=undefined){
                             alert("Error: " + obj[i].Error);
                         }else{
@@ -339,7 +343,10 @@ var app = {
                     }
                 }     
             }
+//            alert("Status: " + status);
+//            alert("XHR: " + JSON.stringify(xhr));
         });
+        alert("Done");
     },
     
     timeConverter: function (UNIX_timestamp){
