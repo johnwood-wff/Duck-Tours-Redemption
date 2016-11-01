@@ -76,17 +76,17 @@ var app = {
                 console.log("Login link: " + link);
                 
                 $.ajax({
-                    url: link,
-                    dataType: 'jsonp',
-                    async: false,
-                    statusCode: {
-                        404: function() {
-                            console.log( "Error with login");
-                        },
-                        200: function(json){
-                            console.log("Login success: " + JSON.stringify(json));
-                        }
-                    }
+                     url: link,
+                     dataType: 'jsonp',
+                     async: false,
+                     statusCode: {
+                         404: function() {
+                             console.log( "Error with login");
+                         },
+                         200: function(json){
+                             console.log("Login success: " + JSON.stringify(json));
+                         }
+                     }
                 });           
             }else{
                console.log("No login information found"); 
@@ -140,6 +140,20 @@ var app = {
             alert(title ? (title + ": " + message) : message);
         }
     },
+    
+    showPrompt: function (message, title, callback, options, defaultText) {
+        if(navigator.notification){
+            navigator.notification.prompt(
+                message,  
+                callback,                  
+                title,            
+                options,             
+                defaultText
+            );
+        }else{
+            prompt(message, defaultText);
+        }
+    },
 
     saveInfo: function (key, value) {
         console.log("Save Data with key: " + key + " and value: " + value);
@@ -159,12 +173,12 @@ var app = {
                 dataType: 'jsonp',
                 async: false,
                 statusCode: {
-                    404: function() {
-                        console.log( "Error with logout");
-                    },
-                    200: function(json){
-                        console.log("Logout success: " + JSON.stringify(json));
-                    }
+                     404: function() {
+                         console.log( "Error with logout");
+                     },
+                     200: function(json){
+                         console.log("Logout success: " + JSON.stringify(json));
+                     }
                 }
             });
         }
@@ -229,17 +243,17 @@ var app = {
                 app.showAlert("All saved data was cleared", "Clear data", 0);
                   
                 $.ajax({
-                    url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
-                    dataType: 'jsonp',
-                    async: false,
-                    statusCode: {
-                        404: function() {
-                            console.log( "Error with logout");
-                        },
-                        200: function(json){
-                            console.log("Logout success: " + JSON.stringify(json));
-                        }
-                    }
+                     url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
+                     dataType: 'jsonp',
+                     async: false,
+                     statusCode: {
+                         404: function() {
+                             console.log( "Error with logout");
+                         },
+                         200: function(json){
+                             console.log("Logout success: " + JSON.stringify(json));
+                         }
+                     }
                 }); 
         
               }
@@ -263,81 +277,82 @@ var app = {
         var printReceipt = "";
         var referenceTicket = "";
  
-        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
-            
-            var obj = JSON.parse(data);
-            for (var i in obj) {
-                if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
-                    if (obj[i].ExchangeForTicket===true){
-                        app.showAlert("The Order has already been redeemed for tickets", "Error", 0);
+        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), checkResult);
+        alert("Done");
+    },
+    
+    checkResult: function(data, status, xhr) {          
+        var obj = JSON.parse(data);
+        for (var i in obj) {
+            if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
+                if (obj[i].ExchangeForTicket===true){
+                    app.showAlert("The Order has already been redeemed for tickets", "Error", 0);
+                }else{
+                    //printing the Transaction Receipt
+                    printReceipt += "Transaction Receipt\r\n";
+                    printReceipt += "--------------------\r\n";
+                    printReceipt += "\r\n";
+                    printReceipt += "Order Number: " + obj[i].OrderID + "\r\n";
+                    printReceipt += "Customer Name: " + obj[i].CustomerName + "\r\n";
+                    printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
+                    printReceipt += obj[i].PurchasedProduct + "\r\n";
+
+                    //TODO: Printing script for transaction receipt is here
+                    app.showAlert(printReceipt, "Transaction Receipt", 0);
+
+                    var ticketBreakdown = JSON.parse(obj[i].TicketBreakdown);
+                    for(var j in ticketBreakdown.TicketBreakdown){
+                        var ticket = "";
+                        ticket += "Duck Tours Ticket\r\n";
+                        ticket += ticketBreakdown.TicketBreakdown[j].QRCode + "\r\n";
+                        ticket += ticketBreakdown.TicketBreakdown[j].TicketNumber + "\r\n";
+                        ticket += ticketBreakdown.TicketBreakdown[j].TicketType + "\r\n";
+                        ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
+
+                        //TODO: printing the Duck Tours ticket with QR code here
+                        app.showAlert(ticket, "Duck Tours Ticket", 0);
+                    }                  
+                }
+            }else{
+                if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
+                    if (obj[i].Error!="" && obj[i].Error!=undefined){
+                        app.showAlert(obj[i].Error, "Error", 0);
                     }else{
-                        //printing the Transaction Receipt
-                        printReceipt += "Transaction Receipt\r\n";
-                        printReceipt += "--------------------\r\n";
-                        printReceipt += "\r\n";
-                        printReceipt += "Order Number: " + obj[i].OrderID + "\r\n";
-                        printReceipt += "Customer Name: " + obj[i].CustomerName + "\r\n";
-                        printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
-                        printReceipt += obj[i].PurchasedProduct + "\r\n";
-                        
-                        //TODO: Printing script for transaction receipt is here
-                        app.showAlert(printReceipt, "Transaction Receipt", 0);
-                        
-                        var ticketBreakdown = JSON.parse(obj[i].TicketBreakdown);
-                        for(var j in ticketBreakdown.TicketBreakdown){
-                            var ticket = "";
-                            ticket += "Duck Tours Ticket\r\n";
-                            ticket += ticketBreakdown.TicketBreakdown[j].QRCode + "\r\n";
-                            ticket += ticketBreakdown.TicketBreakdown[j].TicketNumber + "\r\n";
-                            ticket += ticketBreakdown.TicketBreakdown[j].TicketType + "\r\n";
-                            ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
-                            
-                            //TODO: printing the Duck Tours ticket with QR code here
-                            app.showAlert(ticket, "Duck Tours Ticket", 0);
-                        }                  
+                        referenceTicket += "Venue Reference Transaction Ticket\r\n";
+                        referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
+                        referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
+                        referenceTicket += "Date: " + obj[i].Date + "\r\n";
+                        referenceTicket += "--------------------\r\n";
+                        referenceTicket += "\r\n";
+                        if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
+                            referenceTicket += "Product Name: " + obj[i].ProductName + "\r\n";
+                            referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
+                            referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
+                        }
+                        if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined && obj[i].ProductName==""){
+                            referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
+                            referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
+                        }
+                        if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
+                            referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
+                        }else{
+                            navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
+                                if (results.buttonIndex==1) {
+                                    referenceTicket += "Entrance Ticket Number: " + results.input1;
+                                }
+                            }, "Enter Entrance Ticket Number", ["OK", "Cancel"]);
+                        }
+
+                        //TODO: printing the Reference Ticket here
+                        app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
                     }
                 }else{
-                    if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
-                        if (obj[i].Error!="" && obj[i].Error!=undefined){
-                            app.showAlert(obj[i].Error, "Error", 0);
-                        }else{
-                            referenceTicket += "Venue Reference Transaction Ticket\r\n";
-                            referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
-                            referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
-                            referenceTicket += "Date: " + obj[i].Date + "\r\n";
-                            referenceTicket += "--------------------\r\n";
-                            referenceTicket += "\r\n";
-                            if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
-                                referenceTicket += "Product Name: " + obj[i].ProductName + "\r\n";
-                                referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
-                                referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
-                            }
-                            if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined && obj[i].ProductName==""){
-                                referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
-                                referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
-                            }
-                            if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
-                                referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
-                            }else{
-                                navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
-                                    if (results.buttonIndex==1) {
-                                        referenceTicket += "Entrance Ticket Number: " + results.input1;
-                                    }
-                                }, "Enter Entrance Ticket Number", ["OK", "Cancel"]);
-                            }
-                            
-                            //TODO: printing the Reference Ticket here
-                            app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
-                        }
-                    }else{
-                        if (obj[i].Error!="" && obj[i].Error!=undefined){
-                             app.showAlert(obj[i].Error, "Error", 0);
-                        }  
-                    }
-                }     
-            }
-        });
-        alert("Done");
+                    if (obj[i].Error!="" && obj[i].Error!=undefined){
+                        app.showAlert(obj[i].Error, "Error", 0);
+                    }  
+                }
+            }     
+        }
     },
     
     timeConverter: function (UNIX_timestamp){
