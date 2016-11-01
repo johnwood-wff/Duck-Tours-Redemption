@@ -251,7 +251,7 @@ var app = {
     checkQrCode: function(){
         //alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
-        app.showAlert(qrCode, "Scanned QR Code", 0);
+        //app.showAlert(qrCode, "Scanned QR Code", 0);
         //qrCode = "92885048";
          
         app.doLogin();
@@ -265,8 +265,8 @@ var app = {
         var referenceTicket = "";
         //alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
-        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record))).always(data){
-            alert("Data: " + data);
+        $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
+            //alert("Data: " + data);
             //alert(Object.keys(obj.employees[0]).length);
              
             var obj = JSON.parse(data);
@@ -341,7 +341,8 @@ var app = {
                     }
                 }     
             }
-        };
+        });
+        alert("Done");
     },
     
     timeConverter: function (UNIX_timestamp){
