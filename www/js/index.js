@@ -251,7 +251,7 @@ var app = {
     checkQrCode: function(){
         //alert("Check QR Code");
         var qrCode = document.getElementById("QRCode").value;
-        //app.showAlert(qrCode, "Scanned QR Code", 0);
+        app.showAlert(qrCode, "Scanned QR Code", 0);
         //qrCode = "92885048";
          
         app.doLogin();
@@ -266,7 +266,7 @@ var app = {
         //alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record))).done(data){
-            //alert("Data: " + data);
+            alert("Data: " + data);
             //alert(Object.keys(obj.employees[0]).length);
              
             var obj = JSON.parse(data);
