@@ -250,7 +250,7 @@ var app = {
     //checking with the server
     checkQrCode: function(){
         var qrCode = document.getElementById("QRCode").value;
-        app.showAlert(qrCode, "Scanned QR code", 0);
+        alert("Scanned QR code value: " + qrCode);
         //qrCode = "92885048";
          
         app.doLogin();
@@ -265,13 +265,13 @@ var app = {
         //alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
-            alert("Data: " + data);
+            //alert("Data: " + data);
              
             var obj = JSON.parse(data);
             for (var i in obj) {
                 if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                     if (obj[i].ExchangeForTicket===true){
-                        alert("The Order has already been redeemed for tickets");
+                        alert("Error: The Order has already been redeemed for tickets.");
                     }else{
                         //printing the Transaction Receipt
                         printReceipt += "Transaction Receipt\r\n";
@@ -283,7 +283,7 @@ var app = {
                         printReceipt += obj[i].PurchasedProduct + "\r\n";
                         
                         //TODO: Printing script for transaction receipt is here
-                        app.showAlert(printReceipt, "Printed Transaction Receipt", 0);
+                        alert(printReceipt);
                         
                         var ticketBreakdown = JSON.parse(obj[i].TicketBreakdown);
                         for(var j in ticketBreakdown.TicketBreakdown){
@@ -295,13 +295,13 @@ var app = {
                             ticket += ticketBreakdown.TicketBreakdown[j].Balance + "\r\n";
                             
                             //TODO: printing the Duck Tours ticket with QR code here
-                            app.showAlert(ticket, "Printed Duck Tours ticket", 0);
+                            alert(ticket);
                         }                  
                     }
                 }else{
                     if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                         if (obj[i].Error!="" && obj[i].Error!=undefined){
-                            app.showAlert(obj[i].Error, "Error", 0);
+                            alert("Error: " + obj[i].Error);
                         }else{
                             referenceTicket += "Venue Reference Transaction Ticket \r\n";
                             referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
