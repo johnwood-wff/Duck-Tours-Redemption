@@ -264,7 +264,6 @@ var app = {
     //checking with the server
     checkQrCode: function(){
         var qrCode = document.getElementById("QRCode").value;
-        app.showAlert(qrCode, "Scanned QR Code", 0);
         //qrCode = "92885048";
          
         app.doLogin();
@@ -280,7 +279,7 @@ var app = {
             dataType: 'json',
             async: false,
             success: function(data){
-                app.checkResult(data);
+                app.checkResult(data, qrCode);
             },
             error: function(){
                 app.showAlert("Error with connecting to the server. Please check your wifi/cellulart connection.", "Error", 0);
@@ -292,16 +291,12 @@ var app = {
         //alert("Done");
     },
     
-    checkResult: function(data) {  
-        alert("Check Result");
-        alert(data);
-        alert(JSON.stringify(data));
+    checkResult: function(data, qrCode) { 
+        app.showAlert(qrCode, "Scanned QR Code", 0);
         var printReceipt = "";
         var referenceTicket = "";
         var obj = JSON.parse(JSON.stringify(data));
-        alert("Obj: " + obj);
         for (var i in obj) {
-            alert(obj[i]);
             if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                 if (obj[i].ExchangeForTicket===true){
                     app.showAlert("The Order has already been redeemed for tickets", "Error", 0);
