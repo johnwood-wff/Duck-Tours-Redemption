@@ -295,6 +295,7 @@ var app = {
     checkResult: function(data) {  
         alert("Check Result");
         alert(data);
+        alert(JSON.stringify(data));
         var printReceipt = "";
         var referenceTicket = "";
         var obj = JSON.parse(data);
