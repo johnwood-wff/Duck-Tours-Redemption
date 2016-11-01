@@ -278,7 +278,7 @@ var app = {
         var referenceTicket = "";
  
         
-        $.when($.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)))).then(app.checkResult(data, status, xhr));
+        $.when($.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)))).done(app.checkResult(data, status, xhr));
        
         alert("Done");
     },
