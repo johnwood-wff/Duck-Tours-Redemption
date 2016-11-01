@@ -266,7 +266,7 @@ var app = {
 //        alert("Run function: " + link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)));
  
         $.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), function(data, status, xhr) { 
-//            alert("Data: " + data);
+            alert("Data: " + data);
             //alert(Object.keys(obj.employees[0]).length);
              
             var obj = JSON.parse(data);
