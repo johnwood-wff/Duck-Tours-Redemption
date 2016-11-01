@@ -298,7 +298,7 @@ var app = {
         alert(JSON.stringify(data));
         var printReceipt = "";
         var referenceTicket = "";
-        var obj = JSON.parse(data);
+        var obj = JSON.parse(JSON.stringify(data));
         alert("Obj: " + obj);
         for (var i in obj) {
             alert(obj[i]);
