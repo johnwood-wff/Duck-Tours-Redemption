@@ -281,8 +281,8 @@ var app = {
             success: function(data){
                 app.checkResult(data, qrCode);
             },
-            error: function(){
-                app.showAlert("Error with connecting to the server. Please check your wifi/cellulart connection.", "Error", 0);
+            error: function(e){
+                app.showAlert("Error with connecting to the server. Please check your wifi/cellular connection: " + e.toString(), "Error", 0);
             }
         });
         
