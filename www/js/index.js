@@ -22,7 +22,7 @@ function connectFailure(err)
 	alert("connect failure! " + err);
 }
 
-function printReceipt() {
+function printOutReceipt() {
 
     bluetoothSerial.list(function(devices) {
     	alert('listing devices');
@@ -397,7 +397,7 @@ var app = {
 
                         //TODO: printing the Reference Ticket here
                         //app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
-                        printReceipt();
+                        printOutReceipt();
                     }
                 }else{
                     if (obj[i].Error!="" && obj[i].Error!=undefined){
