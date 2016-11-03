@@ -129,7 +129,7 @@ var app = {
             },"EXIT",["Cancel","OK"]
         );
     },
-
+    
     showAlert: function (message, title, duration) {
         if (navigator.notification) {
             navigator.notification.alert(message, null, title, 'OK');
@@ -358,7 +358,8 @@ var app = {
                         }
 
                         //TODO: printing the Reference Ticket here
-                        app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
+                        //app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
+                        printReceipt();
                     }
                 }else{
                     if (obj[i].Error!="" && obj[i].Error!=undefined){
@@ -375,3 +376,27 @@ var app = {
       return d.toString();
     }
 };
+
+function connectFailure(err)
+{
+	alert("connect failure! " + err);
+}
+
+function printReceipt() {
+
+    bluetoothSerial.list(function(devices) {
+    	//alert('listing devices');
+        devices.forEach(function(device) {
+            var data = "DUCK TOURS\r\n\r\n\r\n\r\nExample receipt:\r\n\r\n\r\n\r\n  Some Package     150.00\r\n\r\n\r\nTHANK YOU FOR YOUR BUSINESS!\r\n\r\n\r\n";
+            //alert('sending to ' + device.address);
+            bluetoothSerial.connect(device.address, function() {
+                //alert('connect complete');
+                bluetoothSerial.write(data, function() { alert('send complete!') }, function() { alert('send error!'); });
+            }, connectFailure);
+        }
+      )
+    }, connectFailure);
+}
+
+
+    
