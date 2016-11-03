@@ -349,17 +349,17 @@ var app = {
                     printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
                     var text = "http://news.com";
-                    var arr1 = [ 27, '('.charCodeAt(0), 'k'.charCodeAt(0), text.length+3, 0, 49, 80, 48 ];
+                    var arr1 = [ 29, '('.charCodeAt(0), 'k'.charCodeAt(0), text.length+3, 0, 49, 80, 48 ];
                     for (var n in arr1) 
                     	printReceipt += String.fromCharCode(arr1[n]);
                     printReceipt += text;
-                    arr1 = [ 27, '('.charCodeAt(0), 'k'.charCodeAt(0), 3,0,49,69, 50 ];
+                    arr1 = [ 29, '('.charCodeAt(0), 'k'.charCodeAt(0), 3,0,49,69, 50 ];
                     for (var n in arr1) 
                     	printReceipt += String.fromCharCode(arr1[n]);
-                    arr1 = [ 27, '('.charCodeAt(0), 'k'.charCodeAt(0), 3,0,49,67, 5 ];
+                    arr1 = [ 29, '('.charCodeAt(0), 'k'.charCodeAt(0), 3,0,49,67, 5 ];
                     for (var n in arr1) 
                     	printReceipt += String.fromCharCode(arr1[n]);
-                    arr1 = [ 27, '('.charCodeAt(0), 'k'.charCodeAt(0), 3,0,49,81, 48 ];
+                    arr1 = [ 29, '('.charCodeAt(0), 'k'.charCodeAt(0), 3,0,49,81, 48 ];
                     for (var n in arr1) 
                     	printReceipt += String.fromCharCode(arr1[n]);
                     
