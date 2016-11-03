@@ -348,7 +348,7 @@ var app = {
                     printReceipt += "Customer Name: " + obj[i].CustomerName + "\r\n";
                     printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
-                    printReceipt += String.fromCharCode(29) + String.fromCharCode(66) + String.fromCharCode(1) + " " + String.fromCharCode(29) + String.fromCharCode(66) + String.fromCharCode(0) +  String.fromCharCode(27) + String.fromCharCode(116) + String.fromCharCode(0) + String.fromCharCode(219) + String.fromCharCode(220) + String.fromCharCode(221) +  " <- Test Chars" + "\r\n";
+                    printReceipt += String.fromCharCode(29) + "!1" + String.fromCharCode(29) + String.fromCharCode(66) + String.fromCharCode(1) + " " + String.fromCharCode(29) + String.fromCharCode(66) + String.fromCharCode(0) +  String.fromCharCode(27) + String.fromCharCode(116) + String.fromCharCode(0) + String.fromCharCode(219) + String.fromCharCode(220) + String.fromCharCode(221) +  " <- Test Chars" + "\r\n";
                     //printReceipt += obj[i].TRQrCode + "\r\n";
 
 
