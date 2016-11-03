@@ -40,7 +40,7 @@ function printOutReceipt(text) {
 }
 
 window.onerror = function(message, url, lineNumber) {
-    console.log("Error: "+message+" in "+url+" at line "+lineNumber);
+    alert("Error: "+message+" in "+url+" at line "+lineNumber);
 }
 
 var app = {  
@@ -349,7 +349,7 @@ var app = {
                     printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
                     var text = "http://news.com";
-                    var arr1 = [ 27, '('.charCodeAt(0), 'k'.charCodeAt(0), text.length()+3, 0, 49, 80, 48 ];
+                    var arr1 = [ 27, '('.charCodeAt(0), 'k'.charCodeAt(0), text.length+3, 0, 49, 80, 48 ];
                     for (var n in arr1) 
                     	printReceipt += String.fromCharCode(arr1[n]);
                     printReceipt += text;
