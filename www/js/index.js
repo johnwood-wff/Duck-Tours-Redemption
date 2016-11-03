@@ -349,7 +349,9 @@ var app = {
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
 
                     //TODO: Printing script for transaction receipt is here
-                    app.showAlert(printReceipt, "Transaction Receipt", 0);
+                    //app.showAlert(printReceipt, "Transaction Receipt", 0);
+                    printOutReceipt();
+
 
                     alert(JSON.stringify(obj[i].TicketBreakdown));
                     var ticketBreakdown = JSON.parse(JSON.stringify(obj[i].TicketBreakdown));
