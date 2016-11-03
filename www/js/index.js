@@ -32,7 +32,7 @@ function printOutReceipt(text) {
             //alert('sending to ' + device.address);
             bluetoothSerial.connect(device.address, function() {
                 //alert('connect complete');
-                bluetoothSerial.write(data, function() { alert('send complete!') }, function() { alert('send error!'); });
+                bluetoothSerial.write(data, function() { bluetoothSerial.disconnect(); }, function() { alert('send error!'); bluetoothSerial.disconnect(); });
             }, connectFailure);
         }
       )
