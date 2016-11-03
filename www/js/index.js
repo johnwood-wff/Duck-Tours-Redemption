@@ -16,6 +16,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+function connectFailure(err)
+{
+	alert("connect failure! " + err);
+}
+
+function printReceipt() {
+
+    bluetoothSerial.list(function(devices) {
+    	alert('listing devices');
+        devices.forEach(function(device) {
+            var data = "DUCK TOURS\r\n\r\n\r\n\r\nExample receipt:\r\n\r\n\r\n\r\n  Some Package     150.00\r\n\r\n\r\nTHANK YOU FOR YOUR BUSINESS!\r\n\r\n\r\n";
+            alert('sending to ' + device.address);
+            bluetoothSerial.connect(device.address, function() {
+                alert('connect complete');
+                bluetoothSerial.write(data, function() { alert('send complete!') }, function() { alert('send error!'); });
+            }, connectFailure);
+        }
+      )
+    }, connectFailure);
+}
+
+window.onerror = function(message, url, lineNumber) {
+    console.log("Error: "+message+" in "+url+" at line "+lineNumber);
+}
+
 var app = {  
     initialize: function() {
         this.bindEvents();
@@ -33,7 +59,19 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent();
+    	console.log("device ready!");
+        app.receivedEvent('deviceready');
+        
+        // Test Bluetooth Serial Plugin
+        bluetoothSerial.isEnabled(
+            function() { 
+                alert("Bluetooth is enabled");
+            },
+            function() { 
+                alert("Bluetooth is *not* enabled");
+            }
+        ); 
+        
     },
     // Update DOM on a Received Event
     receivedEvent: function() {
@@ -377,26 +415,3 @@ var app = {
     }
 };
 
-function connectFailure(err)
-{
-	alert("connect failure! " + err);
-}
-
-function printReceipt() {
-
-    bluetoothSerial.list(function(devices) {
-    	//alert('listing devices');
-        devices.forEach(function(device) {
-            var data = "DUCK TOURS\r\n\r\n\r\n\r\nExample receipt:\r\n\r\n\r\n\r\n  Some Package     150.00\r\n\r\n\r\nTHANK YOU FOR YOUR BUSINESS!\r\n\r\n\r\n";
-            //alert('sending to ' + device.address);
-            bluetoothSerial.connect(device.address, function() {
-                //alert('connect complete');
-                bluetoothSerial.write(data, function() { alert('send complete!') }, function() { alert('send error!'); });
-            }, connectFailure);
-        }
-      )
-    }, connectFailure);
-}
-
-
-    
