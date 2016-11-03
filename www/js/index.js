@@ -22,15 +22,16 @@ function connectFailure(err)
 	alert("connect failure! " + err);
 }
 
-function printOutReceipt() {
+function printOutReceipt(text) {
 
     bluetoothSerial.list(function(devices) {
-    	alert('listing devices');
+    	//alert('listing devices');
         devices.forEach(function(device) {
-            var data = "DUCK TOURS\r\n\r\n\r\n\r\nExample receipt:\r\n\r\n\r\n\r\n  Some Package     150.00\r\n\r\n\r\nTHANK YOU FOR YOUR BUSINESS!\r\n\r\n\r\n";
-            alert('sending to ' + device.address);
+            // add a header and footer for space to tear off
+            var data = "\r\n\r\n\r\n" + text + "\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
+            //alert('sending to ' + device.address);
             bluetoothSerial.connect(device.address, function() {
-                alert('connect complete');
+                //alert('connect complete');
                 bluetoothSerial.write(data, function() { alert('send complete!') }, function() { alert('send error!'); });
             }, connectFailure);
         }
@@ -350,22 +351,25 @@ var app = {
 
                     //TODO: Printing script for transaction receipt is here
                     //app.showAlert(printReceipt, "Transaction Receipt", 0);
-                    printOutReceipt();
+                    printOutReceipt(printReceipt);
 
-
-                    alert(JSON.stringify(obj[i].TicketBreakdown));
                     var ticketBreakdown = JSON.parse(JSON.stringify(obj[i].TicketBreakdown));
-                    for(var j in ticketBreakdown){
-                        var ticket = "";
-                        ticket += "Duck Tours Ticket\r\n";
-                        ticket += ticketBreakdown[j].QRCode + "\r\n";
-                        ticket += ticketBreakdown[j].TicketNumber + "\r\n";
-                        ticket += ticketBreakdown[j].TicketType + "\r\n";
-                        ticket += ticketBreakdown[j].Balance + "\r\n";
-
-                        //TODO: printing the Duck Tours ticket with QR code here
-                        app.showAlert(ticket, "Duck Tours Ticket", 0);
-                    }                  
+                    if (ticketBreakdown!=null) {
+	                    alert("Ticket breakdown " + JSON.stringify(obj[i].TicketBreakdown));
+	                    for(var j in ticketBreakdown){
+	                        var ticket = "";
+	                        ticket += "Duck Tours Ticket\r\n";
+	                        ticket += ticketBreakdown[j].QRCode + "\r\n";
+	                        ticket += ticketBreakdown[j].TicketNumber + "\r\n";
+	                        ticket += ticketBreakdown[j].TicketType + "\r\n";
+	                        ticket += ticketBreakdown[j].Balance + "\r\n";
+	
+	                        //TODO: printing the Duck Tours ticket with QR code here
+	                        //app.showAlert(ticket, "Duck Tours Ticket", 0);
+	        	            printOutReceipt(ticket);
+	                        
+	                    }                  
+                    }
                 }
             }else{
                 if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
@@ -399,7 +403,7 @@ var app = {
 
                         //TODO: printing the Reference Ticket here
                         //app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
-                        printOutReceipt();
+                        printOutReceipt(referenceTicket);
                     }
                 }else{
                     if (obj[i].Error!="" && obj[i].Error!=undefined){
