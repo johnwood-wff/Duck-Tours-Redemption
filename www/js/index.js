@@ -22,6 +22,15 @@ function connectFailure(err)
 	alert("connect failure! " + err);
 }
 
+function decode(byteArray) {
+	var ba = byteArray.split(",");
+	var text = "";
+	for (var n in ba) {
+		text += String.fromCharCode(parseInt(ba[n]));
+	}
+	return text;
+}
+
 function printOutReceipt(text) {
 
     bluetoothSerial.list(function(devices) {
@@ -349,7 +358,7 @@ var app = {
                     printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
                     
-                    printReceipt += Base64.decode(obj[i].TRQrCode) + "\r\n";
+                    printReceipt += decode(obj[i].TRQrCode) + "\r\n\r\n\r\n\r\n";
 
 
                     //TODO: Printing script for transaction receipt is here
@@ -358,7 +367,7 @@ var app = {
 
                     var ticketBreakdown = JSON.parse(JSON.stringify(obj[i].TicketBreakdown));
                     if (ticketBreakdown!=null) {
-	                    alert("Ticket breakdown " + JSON.stringify(obj[i].TicketBreakdown));
+	                   // alert("Ticket breakdown " + JSON.stringify(obj[i].TicketBreakdown));
 	                    for(var j in ticketBreakdown){
 	                        var ticket = "";
 	                        ticket += "Duck Tours Ticket\r\n";
