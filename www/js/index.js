@@ -349,7 +349,7 @@ var app = {
                     printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
                     
-                    printReceipt += obj[i].TRQrCode + "\r\n";
+                    printReceipt += Base64.decode(obj[i].TRQrCode) + "\r\n";
 
 
                     //TODO: Printing script for transaction receipt is here
