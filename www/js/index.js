@@ -321,7 +321,7 @@ var app = {
         var record = {  "QRCode": qrCode
                      };
         
-        var url = link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record));
+        var url = link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record) + "&_=" + (new Date().getTime()).toString());
         $.ajax({
             url: url,
             dataType: 'json',
@@ -358,6 +358,7 @@ var app = {
                     printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
                     
+                    alert("QR: " + obj[i].TRQrCode);
                     printReceipt += decode(obj[i].TRQrCode) + "\r\n\r\n\r\n\r\n";
 
 
