@@ -358,14 +358,10 @@ var app = {
                     printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
                     
-                    alert("QR: " + obj[i].TRQrCode);
-                    printReceipt += decode(obj[i].TRQrCode) + "\r\n\r\n\r\n\r\n";
-
+                    printReceipt += decode(obj[i].TRQrCode) + "\r\n";
 
                     //TODO: Printing script for transaction receipt is here
                     //app.showAlert(printReceipt, "Transaction Receipt", 0);
-                    printOutReceipt(printReceipt);
-
                     var ticketBreakdown = JSON.parse(JSON.stringify(obj[i].TicketBreakdown));
                     if (ticketBreakdown!=null) {
 	                   // alert("Ticket breakdown " + JSON.stringify(obj[i].TicketBreakdown));
@@ -379,10 +375,11 @@ var app = {
 	
 	                        //TODO: printing the Duck Tours ticket with QR code here
 	                        //app.showAlert(ticket, "Duck Tours Ticket", 0);
-	        	            printOutReceipt(ticket);
-	                        
+	        	            printReceipt += ticket;	                        
 	                    }                  
                     }
+                    printOutReceipt(printReceipt);
+                    
                 }
             }else{
                 if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
