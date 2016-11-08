@@ -426,8 +426,8 @@ var app = {
                                     //app.showAlert(ticket, "Duck Tours Ticket", 0);
                                     printReceipt += ticket;
                                 }
-                                app.showAlert(printReceipt, "Transaction Receipt + Tickets", 0);
-                                //printOutReceipt(printReceipt);
+                                //app.showAlert(printReceipt, "Transaction Receipt + Tickets", 0);
+                                printOutReceipt(printReceipt);
                             }else{
                                 if(button==2){
                                     app.loadHomeScreen(obj[i].Action);
@@ -472,8 +472,8 @@ var app = {
                         }
 
                         //TODO: printing the Reference Ticket here
-                        app.showAlert(referenceTicket, obj[i].Attraction + " - Venue Reference Transaction Ticket", 0);
-                        //printOutReceipt(referenceTicket);
+                        //app.showAlert(referenceTicket, obj[i].Attraction + " - Venue Reference Transaction Ticket", 0);
+                        printOutReceipt(referenceTicket);
                     }
                 }else{
                     if (obj[i].Error!="" && obj[i].Error!=undefined){
