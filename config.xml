@@ -42,10 +42,10 @@
   <gap:plugin name="org.apache.cordova.vibration"/>
 
 <!--  <icon src="icon.png"/>-->
-  <icon src="www/res/icon/android/icon_redeem_36.png" gap:platform="android" gap:qualifier="ldpi"/>
-  <icon src="www/res/icon/android/icon_redeem_48.png" gap:platform="android" gap:qualifier="mdpi"/>
-  <icon src="www/res/icon/android/icon_redeem_72.png" gap:platform="android" gap:qualifier="hdpi"/>
-  <icon src="www/res/icon/android/icon_redeem_96.png" gap:platform="android" gap:qualifier="xhdpi"/>
+  <icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
+  <icon src="www/res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
+  <icon src="www/res/icon/android/icon-72-hdpi.png" gap:platform="android" gap:qualifier="hdpi"/>
+  <icon src="www/res/icon/android/icon-96-xhdpi.png" gap:platform="android" gap:qualifier="xhdpi"/>
   <icon src="www/res/icon/blackberry/icon-80.png" gap:platform="blackberry"/>
   <icon src="www/res/icon/blackberry/icon-80.png" gap:platform="blackberry" gap:state="hover"/>
   <icon src="www/res/icon/ios/icon-57.png" gap:platform="ios" width="57" height="57"/>
@@ -75,7 +75,7 @@
 
   <preference name="android-build-tool" value="gradle" />
   <plugin name="com.megster.cordova.bluetoothserial" spec="0.2.2" source="pgb" />
-  
+    
 <!--<gap:plugin name="de.appplant.cordova.plugin.local-notification" source="npm" />
   <plugin name="cordova-plugin-background-mode" spec="0.6.4" source="npm" />
   <plugin name="fi.avaus.cordova.geolocation" spec="0.3.11" source="pgb" />

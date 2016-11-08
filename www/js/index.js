@@ -52,6 +52,7 @@ window.onerror = function(message, url, lineNumber) {
     alert("Error: "+message+" in "+url+" at line "+lineNumber);
 }
 
+var returnData;
 var app = {  
     initialize: function() {
         this.bindEvents();
@@ -69,7 +70,8 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-    	console.log("device ready!");
+        //app.receivedEvent();
+        console.log("device ready!");
         app.receivedEvent('deviceready');
         
         // Test Bluetooth Serial Plugin
@@ -81,22 +83,56 @@ var app = {
                 alert("Bluetooth is *not* enabled");
             }
         ); 
-        
     },
     // Update DOM on a Received Event
     receivedEvent: function() {
         var menuOpen = false;
         var menuDiv = "";
-        var homeScreen = document.getElementById("homeScreen");
         //app.doLogin();
+        //app.loadHomeScreen("http://ducktours.workflowfirst.net/TMS/?m=1&");
     },
 
     backPressed: function(){
         window.history.back();
     },
 
+    loadHomeScreen: function(url){
+        //MUST GET homeScreen be sets
+        alert("Load Home Screen URL: " + url);
+        
+        $.ajax({
+            url: "record.html",
+            cache: false,
+            success: function(result) {
+                var body = jQuery('<body>').html(result);
+                var homeScreen = body.find("#homeScreen");
+                alert("Home Screen: " + homeScreen.attr('src'));
+                
+                var link = "http://ducktours.workflowfirst.net/TMS";
+                var src = "http://ducktours.workflowfirst.net/TMS/?m=1&";
+
+                if (url!=""){
+                    src = url;
+                }
+                
+                alert(src);
+                homeScreen.attr('src', src);
+                homeScreen.src = src;
+                
+                alert("Home Screen: " + homeScreen.attr('src'));
+                alert(homeScreen.src);
+                
+                //homeScreen.attr('src', function(i, val){ return val;});
+                //homeScreen.attr('src', homeScreen.attr('src'));
+                //super.loadUrl("file:///android_asset/www/record.html);
+            },
+        });
+        
+    },
+    
     doLogin: function(){
         var link = "http://ducktours.workflowfirst.net/tms/";
+        var returnValue = false;
         
         //getting username and password
         var loginInfo = "";
@@ -125,23 +161,29 @@ var app = {
                 
                 $.ajax({
                      url: link,
-                     dataType: 'jsonp',
+                     dataType: 'json',
                      async: false,
                      statusCode: {
                          404: function() {
                              console.log( "Error with login");
+                             returnValue = false;
                          },
                          200: function(json){
                              console.log("Login success: " + JSON.stringify(json));
+                             returnValue = true;
                          }
                      }
                 });           
             }else{
-               console.log("No login information found"); 
+                console.log("No login information found"); 
+                returnValue = false;
             }
         }else{
-           console.log("No login information found"); 
-        }  
+            console.log("No login information found");
+            returnValue = false;
+        }
+        
+        return returnValue;
     },
     
     //checking connection
@@ -171,13 +213,13 @@ var app = {
         navigator.notification.confirm(
             "Do you want to exit the app?", 
             function (button) {
-              if (button==2) {
+              if (button==1) {
                 navigator.app.exitApp();
               }
-            },"EXIT",["Cancel","OK"]
+            },"EXIT",["OK","Cancel"]
         );
     },
-    
+
     showAlert: function (message, title, duration) {
         if (navigator.notification) {
             navigator.notification.alert(message, null, title, 'OK');
@@ -186,20 +228,6 @@ var app = {
             }
         } else {
             alert(title ? (title + ": " + message) : message);
-        }
-    },
-    
-    showPrompt: function (message, title, callback, options, defaultText) {
-        if(navigator.notification){
-            navigator.notification.prompt(
-                message,  
-                callback,                  
-                title,            
-                options,             
-                defaultText
-            );
-        }else{
-            prompt(message, defaultText);
         }
     },
 
@@ -218,7 +246,7 @@ var app = {
         if (removeItem===true){
             $.ajax({
                 url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
-                dataType: 'jsonp',
+                dataType: 'json',
                 async: false,
                 statusCode: {
                      404: function() {
@@ -232,6 +260,7 @@ var app = {
         }
         localStorage.setItem(key, value); 
         app.showAlert("Data was saved", "Save", 0);
+        app.loadHomeScreen();
     },
 
     getSaveData: function(key){
@@ -282,7 +311,7 @@ var app = {
         navigator.notification.confirm(
             "Do you want to clear all login data from the app?", 
             function (button) {
-              if (button==2) {
+              if (button==1) {
                 localStorage.clear();
                 username = document.getElementById("username");
                 password = document.getElementById("password");
@@ -292,7 +321,7 @@ var app = {
                   
                 $.ajax({
                      url: 'http://ducktours.workflowfirst.net/TMS/login.aspx?from=',
-                     dataType: 'jsonp',
+                     dataType: 'json',
                      async: false,
                      statusCode: {
                          404: function() {
@@ -305,7 +334,7 @@ var app = {
                 }); 
         
               }
-            },"Clear Data",["Cancel","OK"]
+            },"Clear Data",["OK","Cancel"]
         );
     },
     
@@ -321,18 +350,22 @@ var app = {
         var record = {  "QRCode": qrCode
                      };
         
-        var url = link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record) + "&_=" + (new Date().getTime()).toString());
+        var url = link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record));
+    
         $.ajax({
             url: url,
             dataType: 'json',
             async: false,
             success: function(data){
-                app.checkResult(data, qrCode);
+                //app.checkResult(data, qrCode);
+                returnData = data;
             },
             error: function(x,s,ss){
                 app.showAlert("Error with connecting to the server. Please check your wifi/cellular connection: " + s + " - " + ss, "Error", 0);
             }
         });
+        
+        app.checkResult(returnData, qrCode);
         
         //$.post(link + "runfunction.aspx?id=" + encodeURIComponent(funcId) + "&_format=json&json=" + encodeURIComponent(JSON.stringify(record)), app.checkResult);
        
@@ -340,80 +373,107 @@ var app = {
     },
     
     checkResult: function(data, qrCode) { 
-        app.showAlert(qrCode, "Scanned QR Code", 0);
+        //app.showAlert(qrCode, "Scanned QR Code", 0);
         var printReceipt = "";
         var referenceTicket = "";
         var obj = JSON.parse(JSON.stringify(data));
         for (var i in obj) {
             if (obj[i].OrderID!="" && obj[i].OrderID!=undefined){
                 if (obj[i].ExchangeForTicket===true){
-                    app.showAlert("The Order has already been redeemed for tickets", "Error", 0);
+                    //app.showAlert("The Order has already been redeemed for tickets", "Error", 0);
+                    navigator.notification.confirm(
+                        "The Order has already been redeemed for tickets", 
+                        function (button) {
+                            if(button==1){
+                                alert("URL: " + obj[i].URL);
+                                app.loadHomeScreen(obj[i].URL);
+                                window.location="record.html";
+                            }
+                        },"Error",["View Order","Cancel"]
+                    );
                 }else{
                     //printing the Transaction Receipt
-                    printReceipt += "Transaction Receipt\r\n";
-                    printReceipt += "--------------------\r\n";
+                    printReceipt += "Transaction Receipt - Order Number to Duck Tours ticket\r\n";
+                    printReceipt += decode(obj[i].TRQrCode) + "\r\n";
+                    printReceipt += "Transaction Receipt Number: " + obj[i].TRNo.match(/.{1,4}/g).join(" ") + "\r\n";
+                    printReceipt += "Date: " + app.timeConverter(obj[i].Date) + "\r\n";
+                    printReceipt += "-------------------------------\r\n";
                     printReceipt += "\r\n";
-                    printReceipt += "Order Number: " + obj[i].OrderID + "\r\n";
+                    printReceipt += "Order Number: " + obj[i].OrderID.match(/.{1,4}/g).join(" ") + "\r\n";
                     printReceipt += "Customer Name: " + obj[i].CustomerName + "\r\n";
                     printReceipt += "Purchased Product (Product Name - Quantity):\r\n";
                     printReceipt += obj[i].PurchasedProduct + "\r\n";
-                    
-                    printReceipt += decode(obj[i].TRQrCode) + "\r\n";
 
                     //TODO: Printing script for transaction receipt is here
                     //app.showAlert(printReceipt, "Transaction Receipt", 0);
-                    var ticketBreakdown = JSON.parse(JSON.stringify(obj[i].TicketBreakdown));
-                    if (ticketBreakdown!=null) {
-	                   // alert("Ticket breakdown " + JSON.stringify(obj[i].TicketBreakdown));
-	                    for(var j in ticketBreakdown){
-	                        var ticket = "";
-	                        ticket += "Duck Tours Ticket\r\n";
-	                        ticket += ticketBreakdown[j].QRCode + "\r\n";
-	                        ticket += ticketBreakdown[j].TicketNumber + "\r\n";
-	                        ticket += ticketBreakdown[j].TicketType + "\r\n";
-	                        ticket += ticketBreakdown[j].Balance + "\r\n";
-	
-	                        //TODO: printing the Duck Tours ticket with QR code here
-	                        //app.showAlert(ticket, "Duck Tours Ticket", 0);
-	        	            printReceipt += ticket;	                        
-	                    }                  
-                    }
-                    printOutReceipt(printReceipt);
                     
+                    navigator.notification.confirm(
+                        "Please select if the order should be redeemed as normal ticket or Premium Cards?", 
+                        function (button) {
+                            if(button==1){
+                                var ticketBreakdown = JSON.parse(JSON.stringify(obj[i].TicketBreakdown));
+                                for(var j in ticketBreakdown){
+                                    var ticket = "";
+                                    ticket += "Duck Tours Ticket\r\n";
+                                    ticket += decode(ticketBreakdown[j].QRCode) + "\r\n";
+                                    ticket += "Date: " + app.timeConverter(ticketBreakdown[j].Date) + "\r\n";
+                                    ticket += "Customer Name: " + ticketBreakdown[i].CustomerName + "\r\n";
+                                    ticket += "Ticket Number: " + ticketBreakdown[j].TicketNumber.match(/.{1,4}/g).join(" ") + "\r\n";
+                                    ticket += "Ticket Type: " + ticketBreakdown[j].TicketType + "\r\n";
+                                    ticket += "Number of entrance ticket can be issued: " + ticketBreakdown[j].Balance + "\r\n";
+
+                                    //TODO: printing the Duck Tours ticket with QR code here
+                                    //app.showAlert(ticket, "Duck Tours Ticket", 0);
+                                    printReceipt += ticket;
+                                }
+                                app.showAlert(printReceipt, "Transaction Receipt + Tickets", 0);
+                                //printOutReceipt(printReceipt);
+                            }else{
+                                if(button==2){
+                                    app.loadHomeScreen(obj[i].Action);
+                                    window.location = "record.html";
+                                }
+                            }
+                        },"Error",["Normal Ticket", "Premium Cards"]
+                    );                 
                 }
             }else{
                 if (obj[i].TicketNumber!="" && obj[i].TicketNumber!=undefined){
                     if (obj[i].Error!="" && obj[i].Error!=undefined){
-                        app.showAlert(obj[i].Error, "Error", 0);
+                        //app.showAlert(obj[i].Error, "Error", 0);
+                        navigator.notification.confirm(
+                            ticketRedeemedErr, 
+                            function (button) {
+                                if(button==1){
+                                    alert("Ticket URL: " + obj[i].URL)
+                                    app.loadHomeScreen(obj[i].URL);
+                                    window.location="record.html";
+                                }
+                            },"Error",["View Visit","Cancel"]
+                        );
                     }else{
-                        referenceTicket += "Venue Reference Transaction Ticket\r\n";
-                        referenceTicket += obj[i].ReferenceTicketNoQrCode + "\r\n";
-                        referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo + "\r\n";
-                        referenceTicket += "Date: " + obj[i].Date + "\r\n";
-                        referenceTicket += "--------------------\r\n";
+                        referenceTicket += obj[i].Attraction + " - Venue Reference Transaction Ticket\r\n";
+                        referenceTicket += decode(obj[i].ReferenceTicketNoQrCode) + "\r\n";
+                        referenceTicket += "Reference Number: " + obj[i].ReferenceTicketNo.match(/.{1,4}/g).join(" ") + "\r\n";
+                        referenceTicket += "Date: " + app.timeConverter(obj[i].Date) + "\r\n";
+                        referenceTicket += "-------------------------------\r\n";
                         referenceTicket += "\r\n";
                         if (obj[i].ProductName!=="" && obj[i].ProductName!==undefined){
                             referenceTicket += "Product Name: " + obj[i].ProductName + "\r\n";
                             referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
                             referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
                         }
-                        if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined && obj[i].ProductName==""){
+                        if (obj[i].Attraction!=="" && obj[i].Attraction!==undefined && (obj[i].ProductName==""||obj[i].ProductName==undefined)){
                             referenceTicket += "Merchant: " + obj[i].Merchant + "\r\n";
                             referenceTicket += "Attraction: " + obj[i].Attraction + "\r\n";
                         }
                         if (obj[i].EntranceTicketNo!=="" && obj[i].EntranceTicketNo!==undefined){
                             referenceTicket += "Entrance Ticket Number: " + obj[i].EntranceTicketNo + "\r\n";
-                        }else{
-                            navigator.notification.prompt("Please enter/scan the value on Entrance Ticket", function(results){
-                                if (results.buttonIndex==1) {
-                                    referenceTicket += "Entrance Ticket Number: " + results.input1;
-                                }
-                            }, "Enter Entrance Ticket Number", ["OK", "Cancel"]);
                         }
 
                         //TODO: printing the Reference Ticket here
-                        //app.showAlert(referenceTicket, "Venue Reference Transaction Ticket", 0);
-                        printOutReceipt(referenceTicket);
+                        app.showAlert(referenceTicket, obj[i].Attraction + " - Venue Reference Transaction Ticket", 0);
+                        //printOutReceipt(referenceTicket);
                     }
                 }else{
                     if (obj[i].Error!="" && obj[i].Error!=undefined){
@@ -426,8 +486,45 @@ var app = {
     },
     
     timeConverter: function (UNIX_timestamp){
-      var d = new Date(UNIX_timestamp);
-      return d.toString();
+        //convert timestamp to Singapore timezone and change to 12 hours format
+        var date = new Date(UNIX_timestamp);
+        var offset = date.getTimezoneOffset();
+        date.setMinutes(date.getMinutes() - (offset - 60));
+        var year = date.getUTCFullYear();
+        var month = date.getUTCMonth() + 1; // getMonth() is zero-indexed, so we'll increment to get the correct month number
+        var day = date.getUTCDate();
+        var hours = date.getUTCHours();
+        var minutes = date.getUTCMinutes();
+        var seconds = date.getUTCSeconds();
+        
+        month = (month < 10) ? '0' + month : month;
+        day = (day < 10) ? '0' + day : day;
+        hours = (hours < 10) ? '0' + hours : hours;
+        minutes = (minutes < 10) ? '0' + minutes : minutes;
+        seconds = (seconds < 10) ? '0' + seconds: seconds;
+        var date = day + '/' + month + '/' + year;
+        
+        var time = hours + ':' + minutes + ':' + seconds;
+  		time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [t];
+
+  		if (time.length > 1) { // If time format correct
+            time = time.slice (1);  // Remove full string match value
+            time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+            time[0] = +time[0] % 12 || 12; // Adjust hours
+  		}
+  		time = time.join(''); 
+        return date + ' ' + time;
+        
+        //convert timestamp to local timezone
+        //var a = new Date(UNIX_timestamp);
+        //var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        //var year = a.getFullYear();
+        //var month = months[a.getMonth()];
+        //var date = a.getDate();
+        //var hour = a.getHours();
+        //var min = a.getMinutes();
+        //var sec = a.getSeconds();
+        //var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        //return time;
     }
 };
-
